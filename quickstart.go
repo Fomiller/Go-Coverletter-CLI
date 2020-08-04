@@ -73,7 +73,7 @@ func main() {
 	}
 
 	// If modifying these scopes, delete your previously saved token.json.
-	config, err := google.ConfigFromJSON(b, "https://www.googleapis.com/auth/documents.readonly")
+	config, err := google.ConfigFromJSON(b, "https://www.googleapis.com/auth/documents")
 	if err != nil {
 		log.Fatalf("Unable to parse client secret file to config: %v", err)
 	}
@@ -90,19 +90,24 @@ func main() {
 
 	// My Resume URL
 	// https://docs.google.com/document/d/1nr5QwbYbt61vrpB_eWHGVDs17Qc5DN2aKmDMHBSDL7k/edit
-	docId := "1I56fTE-8HhJTXAtOlpnzAIMwhHgu-0go4uVXbBiUFmQ"
-	doc, err := srv.Documents.Get(docId).Do()
-	if err != nil {
-		log.Fatalf("Unable to retrieve data from document: %v", err)
-	}
-	fmt.Printf("The title of the doc is: %s\n", doc.Title)
-
-	json, err := json.MarshalIndent(doc, "", "  ")
-	fmt.Println(string(json))
-
-	// docBody, err := doc.Body.MarshalJSON()
+	// docId := "1I56fTE-8HhJTXAtOlpnzAIMwhHgu-0go4uVXbBiUFmQ"
+	// doc, err := srv.Documents.Get(docId).Do()
 	// if err != nil {
-	// 	log.Fatal(err)
+	// 	log.Fatalf("Unable to retrieve data from document: %v", err)
 	// }
-	// fmt.Println("DOCUMENT", string(docBody))
+	// fmt.Printf("The title of the doc is: %s\n", doc.Title)
+
+	// json, err := json.MarshalIndent(doc, "", "  ")
+	// fmt.Println(string(json))
+
+	var newDoc docs.Document
+	newDoc.Title = "BLAH BLAH BLAH"
+
+	res, err := srv.Documents.Create(&newDoc).Do()
+	if err != nil {
+		log.Panicf("THIS IS THE ERROR: %v", err)
+	}
+
+	fmt.Println("RESPONSE: ", res)
+
 }
