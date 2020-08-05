@@ -14,6 +14,10 @@ import (
 	"google.golang.org/api/drive/v3"
 )
 
+const (
+	TEMPLATE = "1yMx9J4z6cJCVpzp9zXjknkVX6xrtMFufsp_iNv9aZ40"
+)
+
 // Retrieve a token, saves the token, then returns the generated client.
 func getClient(config *oauth2.Config) *http.Client {
 	// The file token.json stores the user's access and refresh tokens, and is
@@ -76,7 +80,7 @@ func main() {
 	}
 
 	// If modifying these scopes, delete your previously saved token.json.
-	config, err := google.ConfigFromJSON(b, drive.DriveMetadataReadonlyScope)
+	config, err := google.ConfigFromJSON(b, drive.DriveScope)
 	if err != nil {
 		log.Fatalf("Unable to parse client secret file to config: %v", err)
 	}
@@ -100,4 +104,34 @@ func main() {
 			fmt.Printf("%s (%s)\n", i.Name, i.Id)
 		}
 	}
+
+	fmt.Println("\n<---------------------------->\n")
+
+	// generate list of ids
+	res, err := srv.Files.GenerateIds().Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+	// loop through ids
+	if len(res.Ids) == 0 {
+		fmt.Println("No Files found.")
+	} else {
+		for i, v := range res.Ids {
+			fmt.Printf("ID-%v: %v\n", i, v)
+		}
+	}
+
+	fmt.Println("\n<---------------------------->\n")
+
+	copyTitle := "New Template"
+	newFile := drive.File{}
+	newFile.Name = copyTitle
+
+	driveRes, err := srv.Files.Copy(TEMPLATE, &newFile).Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("DRIVE RESPONSE: ", driveRes)
+	fmt.Println("DRIVE RESPONSE: ", driveRes.DriveId)
+
 }
