@@ -1,4 +1,4 @@
-package main
+package drive
 
 import (
 	"encoding/json"
@@ -23,7 +23,7 @@ func getClient(config *oauth2.Config) *http.Client {
 	// The file token.json stores the user's access and refresh tokens, and is
 	// created automatically when the authorization flow completes for the first
 	// time.
-	tokFile := "token.json"
+	tokFile := "./drive/token.json"
 	tok, err := tokenFromFile(tokFile)
 	if err != nil {
 		tok = getTokenFromWeb(config)
@@ -73,8 +73,8 @@ func saveToken(path string, token *oauth2.Token) {
 	json.NewEncoder(f).Encode(token)
 }
 
-func main() {
-	b, err := ioutil.ReadFile("credentials.json")
+func CreateTemplateCopy() string {
+	b, err := ioutil.ReadFile("./drive/credentials.json")
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
 	}
@@ -123,7 +123,8 @@ func main() {
 
 	fmt.Println("\n<---------------------------->\n")
 
-	copyTitle := "New Template"
+	// **** make this a dynamic value ***
+	copyTitle := "UPDATED TEMPLATE"
 	newFile := drive.File{}
 	newFile.Name = copyTitle
 
@@ -133,5 +134,6 @@ func main() {
 	}
 	// print document id if successful.
 	fmt.Println("FILE/DOCUMENT-ID: ", driveRes.Id)
+	return driveRes.Id
 
 }
