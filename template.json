@@ -1,0 +1,29 @@
+{
+  "requests": [
+    {
+      "insertText": {
+        "location": {
+          "index": 1
+        },
+        "text": "The quick brown fox jumped over the lazy dog"
+      }
+    },
+    {
+      "insertText": {
+        "location": {
+          "index": 1
+        },
+        "text": "flkahsjd flkajsdfhlkasjdhf laksjdf hklajs dfklajshdf lkjasdhflkajshdflkasjhdflakjsk hfla a  kd fs hfdksh fklsdf kj kshf sd hfks dflkf s kljsd fhskljd fhskljd ahflkajsdhflaf \n"
+      }
+    },
+    {
+      "replaceAllText": {
+          "containsText": {
+              "text": "{{DATE}}",
+              "matchCase":  "true"
+          },
+          "replaceText": "12/10/1993"
+      }
+    } 
+  ]
+}
