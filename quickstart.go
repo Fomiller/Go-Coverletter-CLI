@@ -66,6 +66,21 @@ func saveToken(path string, token *oauth2.Token) {
 	json.NewEncoder(f).Encode(token)
 }
 
+// reads template.json file and returns a BatchUpdateDocumentRequest for updating documents.
+func templateFromFile(file string) (*docs.BatchUpdateDocumentRequest, error) {
+	// init template stuct
+	template := &docs.BatchUpdateDocumentRequest{}
+	// read file
+	f, err := os.Open(file)
+	defer f.Close()
+	if err != nil {
+		return nil, err
+	}
+	// decode JSON into BatchUpdateDocumentRequest struct
+	err = json.NewDecoder(f).Decode(template)
+	return template, err
+}
+
 func main() {
 	b, err := ioutil.ReadFile("credentials.json")
 	if err != nil {
@@ -97,17 +112,24 @@ func main() {
 	// }
 	// fmt.Printf("The title of the doc is: %s\n", doc.Title)
 
-	// json, err := json.MarshalIndent(doc, "", "  ")
-	// fmt.Println(string(json))
-
+	// <----------------------------------->
+	// <----------------------------------->
+	// <----------------------------------->
+	// My Code
 	var newDoc docs.Document
-	newDoc.Title = "BLAH BLAH BLAH"
-
+	newDoc.Title = "PEW PEW 2"
 	res, err := srv.Documents.Create(&newDoc).Do()
 	if err != nil {
 		log.Panicf("THIS IS THE ERROR: %v", err)
 	}
 
-	fmt.Println("RESPONSE: ", res)
+	fmt.Println("\n RESPONSE DocumentId: \n", res.DocumentId)
 
+	tpl, err := templateFromFile("template.json")
+	fmt.Println("\n TEMPLATE: \n", tpl)
+	batchRes, err := srv.Documents.BatchUpdate("1OXbxsaMG8TkPTZCuj_cKu0A2B_Ft4jfUjtA2FcBNUW0", tpl).Do()
+	if err != nil {
+		log.Fatalf("BATCH FAIL %v ", err)
+	}
+	fmt.Println("\n BATCH RES:\n", batchRes)
 }
