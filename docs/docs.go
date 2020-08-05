@@ -1,4 +1,4 @@
-package main
+package docs
 
 import (
 	"encoding/json"
@@ -7,8 +7,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-
-	"google.golang.org/api/drive/v3"
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
@@ -22,7 +20,7 @@ var (
 
 // Retrieves a token, saves the token, then returns the generated client.
 func getClient(config *oauth2.Config) *http.Client {
-	tokFile := "token.json"
+	tokFile := "./docs/token.json"
 	tok, err := tokenFromFile(tokFile)
 	if err != nil {
 		tok = getTokenFromWeb(config)
@@ -87,8 +85,8 @@ func templateFromFile(file string) (*docs.BatchUpdateDocumentRequest, error) {
 	return template, err
 }
 
-func main() {
-	b, err := ioutil.ReadFile("credentials.json")
+func UpdateTemplateFile(templateId string) string {
+	b, err := ioutil.ReadFile("./docs/credentials.json")
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
 	}
@@ -110,36 +108,37 @@ func main() {
 	// <----------------------------------->
 	// My Code
 	// var newDoc docs.Document
-	newDoc := DOC
-	newDoc.Title = "GOOD TO GO"
-	fmt.Println(newDoc.Title)
-	res, err := srv.Documents.Create(&newDoc).Do()
-	if err != nil {
-		log.Panicf("THIS IS THE ERROR: %v", err)
-	}
+	// newDoc := DOC
+	// newDoc.Title = "GOOD TO GO"
+	// fmt.Println(newDoc.Title)
+	// res, err := srv.Documents.Create(&newDoc).Do()
+	// if err != nil {
+	// 	log.Panicf("THIS IS THE ERROR: %v", err)
+	// }
 
-	fmt.Printf("\n RESPONSE DocumentId: %v", res.DocumentId)
+	// fmt.Printf("\n RESPONSE DocumentId: %v", res.DocumentId)
 
-	tpl, err := templateFromFile("template.json")
-	fmt.Println("\n TEMPLATE: \n", tpl)
-	batchRes, err := srv.Documents.BatchUpdate("1OXbxsaMG8TkPTZCuj_cKu0A2B_Ft4jfUjtA2FcBNUW0", tpl).Do()
+	// **** make this file a dynamic file ****
+	tpl, err := templateFromFile("./docs/template.json")
+	batchRes, err := srv.Documents.BatchUpdate(templateId, tpl).Do()
 	if err != nil {
 		log.Fatalf("BATCH FAIL %v ", err)
 	}
 	fmt.Printf("SUCCESSFUL BATCH UPDATE: %v \n", batchRes.DocumentId)
+	return batchRes.DocumentId
 
-	// COPYING FILE FROM DRIVE
-	newFile := drive.File{}
-	newFile.Name = "NEW TEMPLATE"
-	ctx := context.Background()
-	driveSrv, err := drive.NewService(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// // COPYING FILE FROM DRIVE
+	// newFile := drive.File{}
+	// newFile.Name = "NEW TEMPLATE"
+	// ctx := context.Background()
+	// driveSrv, err := drive.NewService(ctx)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	driveRes, err := driveSrv.Files.Copy("1yMx9J4z6cJCVpzp9zXjknkVX6xrtMFufsp_iNv9aZ40", &newFile).Do()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("DRIVE RES: ", driveRes)
+	// driveRes, err := driveSrv.Files.Copy("1yMx9J4z6cJCVpzp9zXjknkVX6xrtMFufsp_iNv9aZ40", &newFile).Do()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println("DRIVE RES: ", driveRes)
 }
