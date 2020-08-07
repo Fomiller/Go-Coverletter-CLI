@@ -17,14 +17,16 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 	"os"
+
+	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
 
 var cfgFile string
+var userLicense string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -58,10 +60,16 @@ func init() {
 	// will be global for your application.
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.coverletter.yaml)")
+	// rootCmd.PersistentFlags().StringP("author", "a", "YOUR NAME", "author name for copyright attribution")
+	// rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
+	// rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
+	// viper.BindPFlag("author", rootCmd.PersistentFlags().Lookup("author"))
+	// viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
+	// viper.SetDefault("author", "NAME HERE <EMAIL ADDRESS>")
+	// viper.SetDefault("license", "apache")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
 // initConfig reads in config file and ENV variables if set.
