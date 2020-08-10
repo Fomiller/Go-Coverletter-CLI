@@ -25,3 +25,7 @@ https://developers.google.com/docs/api/how-tos/documents
 
 google drive API  
 https://developers.google.com/drive/api/v3/reference/files/copy
+
+## godocs references
+drive  
+https://godoc.org/google.golang.org/api/drive/v3
