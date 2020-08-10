@@ -106,7 +106,15 @@ func CreateTemplateCopy() string {
 	}
 
 	fmt.Println("\n<---------------------------->\n")
+	fmt.Println("List Call")
 
+	fl, err := srv.Files.List().Q("name='Cover Letter Template'").Do()
+	if err != nil {
+		log.Panic("fl: ", err)
+	}
+	fmt.Println("This is from Q:", fl.Files[0].Name)
+
+	fmt.Println("\n<---------------------------->\n")
 	// generate list of ids
 	res, err := srv.Files.GenerateIds().Do()
 	if err != nil {
@@ -135,5 +143,36 @@ func CreateTemplateCopy() string {
 	// print document id if successful.
 	fmt.Println("FILE/DOCUMENT-ID: ", driveRes.Id)
 	return driveRes.Id
+
+}
+
+func SearchForFiles(q string) {
+	query := fmt.Sprintf("name='%v'", q)
+	fmt.Println(query)
+
+	b, err := ioutil.ReadFile("./drive/credentials.json")
+	if err != nil {
+		log.Fatalf("Unable to read client secret file: %v", err)
+	}
+
+	// If modifying these scopes, delete your previously saved token.json.
+	config, err := google.ConfigFromJSON(b, drive.DriveScope)
+	if err != nil {
+		log.Fatalf("Unable to parse client secret file to config: %v", err)
+	}
+	client := getClient(config)
+
+	srv, err := drive.New(client)
+	if err != nil {
+		log.Fatalf("Unable to retrieve Drive client: %v", err)
+	}
+
+	fl, err := srv.Files.List().Q(query).Do()
+	if err != nil {
+		log.Panic("fl: ", err)
+	}
+	for _, v := range fl.Files {
+		fmt.Println("File Name: ", v.Name)
+	}
 
 }
