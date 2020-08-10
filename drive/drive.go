@@ -74,7 +74,7 @@ func saveToken(path string, token *oauth2.Token) {
 }
 
 func CreateTemplateCopy() string {
-	b, err := ioutil.ReadFile("../drive/credentials.json")
+	b, err := ioutil.ReadFile("./drive/credentials.json")
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
 	}

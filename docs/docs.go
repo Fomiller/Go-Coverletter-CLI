@@ -86,7 +86,7 @@ func templateFromFile(file string) (*docs.BatchUpdateDocumentRequest, error) {
 }
 
 func UpdateTemplateFile(templateId string) string {
-	b, err := ioutil.ReadFile("../docs/credentials.json")
+	b, err := ioutil.ReadFile("./docs/credentials.json")
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
 	}
