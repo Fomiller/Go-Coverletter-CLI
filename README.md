@@ -1,4 +1,4 @@
-# Coverletter CLI
+# Scribe CLI
 
 ## Tech Used
 * Go
