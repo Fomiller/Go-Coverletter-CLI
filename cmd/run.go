@@ -18,8 +18,8 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/fomiller/Go-Coverletter-CLI/docs"
-	"github.com/fomiller/Go-Coverletter-CLI/drive"
+	"github.com/fomiller/scribe/docs"
+	"github.com/fomiller/scribe/drive"
 	"github.com/spf13/cobra"
 )
 

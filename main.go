@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/fomiller/Go-Coverletter-CLI/cmd"
+import "github.com/fomiller/scribe/cmd"
 
 // import "coverletter/cmd"
 

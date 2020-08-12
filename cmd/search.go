@@ -16,7 +16,7 @@ limitations under the License.
 package cmd
 
 import (
-	"github.com/fomiller/Go-Coverletter-CLI/drive"
+	"github.com/fomiller/scribe/drive"
 	"github.com/spf13/cobra"
 )
 
