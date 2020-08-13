@@ -34,5 +34,5 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// searchCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	searchCmd.Flags().StringVarP(&query, "query", "q", "", "Insert your file name here.")
+	searchCmd.Flags().StringVarP(&query, "query", "q", "template", "Insert your file name here.")
 }
