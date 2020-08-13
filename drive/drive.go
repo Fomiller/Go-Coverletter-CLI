@@ -147,7 +147,7 @@ func CreateTemplateCopy() string {
 }
 
 func SearchForFiles(q string) {
-	query := fmt.Sprintf("name='%v'", q)
+	query := fmt.Sprintf("name contains '%v'", q)
 
 	b, err := ioutil.ReadFile("./drive/credentials.json")
 	if err != nil {
@@ -170,8 +170,9 @@ func SearchForFiles(q string) {
 	if err != nil {
 		log.Panic("fl: ", err)
 	}
-	for _, v := range fl.Files {
-		fmt.Println("File Name: ", v.Name)
+	fmt.Println(fl.Files[0])
+	for i, v := range fl.Files {
+		fmt.Printf("%v: %v\n", i, v.Name)
 	}
 
 }
