@@ -15,9 +15,9 @@ var NewFileName string
 var createCmd = &cobra.Command{
 	Use:   "create",
 	Short: "create a new file using a template",
-	Long: `Create will create a new file based off of a template name.
+	Long: `Create command will create a new file based off of a template and field arguments provided by the field flag.
 
-	Use the Fields flag -f to specify fields inside your template that need to be replaced with data.
+	Use the field flag -f to specify fields inside your template that need to be replaced with data.
 	for example:
 	fields takes in a map[string]string
 	Single field example:
