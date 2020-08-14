@@ -15,17 +15,31 @@ var userLicense string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "coverletter",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "scribe",
+	Short: "A CLI to help you work with templates.",
+	Long:  `Scribe is a CLI for interfacing with templates using the Google Docs and Google Drive API.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+	// Run: func(cmd *cobra.Command, args []string) {
+	// 	if len(args) == 0 {
+	// 		cmdList := []string{}
+	// 		rcmds := cmd.Commands()
+	// 		for _, v := range rcmds {
+	// 			cmdList = append(cmdList, v.Use)
+	// 		}
+	// 		prompt := promptui.Select{
+	// 			Keys:  &promptui.SelectKeys{Next: down, Prev: up, PageUp: left, PageDown: right},
+	// 			Label: "Select a command",
+	// 			Items: cmdList,
+	// 		}
+	// 		_, result, err := prompt.Run()
+	// 		if err != nil {
+	// 			fmt.Printf("Prompt failed %v\n", err)
+	// 			return
+	// 		}
+	// 		fmt.Printf("You choose %q\n", result)
+	// 	}
+	// },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
