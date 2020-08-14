@@ -2,7 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"strings"
+
+	"github.com/fomiller/scribe/docs"
 
 	"github.com/spf13/cobra"
 )
@@ -34,8 +35,11 @@ var createCmd = &cobra.Command{
 		fmt.Printf("Created: %v\n", NewFileName)
 		fmt.Printf("Using template: %v\n", Template)
 		fmt.Println("Fields edited in your template:")
-		for k, val := range FieldMap {
-			fmt.Println("Key: ", strings.ToUpper(k), "Value: ", val)
+		replaceStruct := docs.CreateReplaceStruct(FieldMap)
+		for i, v := range replaceStruct {
+			fmt.Printf("struct #:%v\n", i)
+			fmt.Printf("Field Name:%v\n", v.ReplaceAllText.ContainsText.Text)
+			fmt.Printf("Field Text:%v\n", v.ReplaceAllText.ReplaceText)
 		}
 	},
 }
