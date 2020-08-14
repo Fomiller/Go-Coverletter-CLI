@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
@@ -17,6 +18,16 @@ import (
 var (
 	DOC docs.Document
 )
+
+type ReplaceStruct struct {
+	ReplaceAllText struct {
+		ContainsText struct {
+			Text      string `json:"text"`
+			MatchCase string `json:"matchCase"`
+		} `json:"containsText"`
+		ReplaceText string `json:"replaceText"`
+	} `json:"replaceAllText"`
+}
 
 // Retrieves a token, saves the token, then returns the generated client.
 func getClient(config *oauth2.Config) *http.Client {
@@ -141,4 +152,18 @@ func UpdateTemplateFile(templateId string) string {
 	// 	log.Fatal(err)
 	// }
 	// fmt.Println("DRIVE RES: ", driveRes)
+}
+
+func CreateReplaceStruct(m map[string]string) []ReplaceStruct {
+	var rss []ReplaceStruct
+	for k, val := range m {
+		var rs ReplaceStruct
+		rs.ReplaceAllText.ContainsText.Text = fmt.Sprintf("{{%v}}", strings.ToUpper(k))
+		rs.ReplaceAllText.ContainsText.MatchCase = "true"
+		rs.ReplaceAllText.ReplaceText = val
+		fmt.Printf("New Struct: %v\n", rs)
+		rss = append(rss, rs)
+	}
+	return rss
+
 }
