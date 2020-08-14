@@ -1,18 +1,3 @@
-/*
-Copyright © 2020 NAME HERE <EMAIL ADDRESS>
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 package cmd
 
 import (
@@ -25,7 +10,20 @@ import (
 var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "list out files in your drive.",
-	Long:  `List will return you a list of the files located in your google drive without a search criteria.`,
+	Long: `List will return you a list of the files located in your google drive without a search criteria.
+	
+	Use the Fields flag -f to specify fields inside your template that need to be replaced with data.
+	for example:
+	fields takes in a map[string]string
+	Single field example:
+		--fields 'name=Myname'
+	Multiple fields example:
+	comma seperated single string
+		-f 'name=Myname, date=12/10/1993'
+	comma seperated single string with substrings
+		-f '"name=Myname", "date=12/10/1993"' OR -f '"name"="Myname", "date"="12/10/1993"' OR -f '"name=Myname" -f '"date=12/10/1993"
+	
+	*All keys are automatically capitalized to match fields in Google doc template ex: '{{NAME}}'`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("list called")
 	},
