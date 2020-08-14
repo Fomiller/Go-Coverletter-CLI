@@ -8,6 +8,8 @@ import (
 )
 
 var FieldMap map[string]string
+var Template string
+var NewFileName string
 
 // createCmd represents the create command
 var createCmd = &cobra.Command{
@@ -15,9 +17,23 @@ var createCmd = &cobra.Command{
 	Short: "create a new file using a template",
 	Long: `Create will create a new file based off of a template name.
 
-Use the list command flags to automatically fill in placeholders inside the template.`,
+	Use the Fields flag -f to specify fields inside your template that need to be replaced with data.
+	for example:
+	fields takes in a map[string]string
+	Single field example:
+		--fields 'name=Myname'
+	Multiple fields example:
+	comma seperated single string
+		-f 'name=Myname, date=12/10/1993'
+	comma seperated single string with substrings
+		-f '"name=Myname", "date=12/10/1993"' OR -f '"name"="Myname", "date"="12/10/1993"' OR -f '"name=Myname" -f '"date=12/10/1993"
+	
+	*All keys are automatically capitalized to match fields in Google doc template ex: '{{NAME}}'`,
+
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("create called")
+		fmt.Printf("Created: %v\n", NewFileName)
+		fmt.Printf("Using template: %v\n", Template)
+		fmt.Println("Fields edited in your template:")
 		for k, val := range FieldMap {
 			fmt.Println("Key: ", strings.ToUpper(k), "Value: ", val)
 		}
@@ -37,4 +53,6 @@ func init() {
 	// is called directly, e.g.:
 	// createCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	createCmd.Flags().StringToStringVarP(&FieldMap, "field", "f", nil, "use this to fill out custom fields")
+	createCmd.Flags().StringVarP(&Template, "template", "t", "", "Enter the name of the template you would like to use.")
+	createCmd.Flags().StringVarP(&NewFileName, "name", "n", "nil", "Enter the name of the new file.")
 }
