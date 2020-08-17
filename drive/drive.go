@@ -177,7 +177,7 @@ func SearchForFiles(q string) {
 
 }
 
-func NewTemplate(s string) string {
+func NewTemplate(newFileName string) string {
 	b, err := ioutil.ReadFile("./drive/credentials.json")
 	if err != nil {
 		log.Fatalf("Unable to read client secret file: %v", err)
@@ -196,15 +196,13 @@ func NewTemplate(s string) string {
 	}
 
 	// **** make this a dynamic value ***
-	copyTitle := s
 	newFile := drive.File{}
-	newFile.Name = copyTitle
+	newFile.Name = newFileName
 
 	driveRes, err := srv.Files.Copy(TEMPLATE, &newFile).Do()
 	if err != nil {
 		log.Fatal(err)
 	}
-	// print document id if successful.
-	fmt.Println("FILE/DOCUMENT-ID: ", driveRes.Id)
+
 	return driveRes.Id
 }
