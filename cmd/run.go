@@ -3,8 +3,6 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/fomiller/scribe/docs"
-	"github.com/fomiller/scribe/drive"
 	"github.com/spf13/cobra"
 )
 
@@ -20,13 +18,12 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("run called")
-		fmt.Println("<--------------------------------->")
 
-		templateCopyId := drive.CreateTemplateCopy()
-		fmt.Println("This is the template Copy id: ", templateCopyId)
-		templateId := docs.UpdateTemplateFile(templateCopyId)
-
-		fmt.Println("Successfully updated document: ", templateId)
+		// OLD FUNCTIONS NEED TO EITHER BE DELETED OR BROKEN APART TO BE USED
+		// templateCopyId := drive.CreateTemplateCopy()
+		// fmt.Println("This is the template Copy id: ", templateCopyId)
+		// templateId := docs.UpdateTemplateFile(templateCopyId)
+		// fmt.Println("Successfully updated document: ", templateId)
 
 	},
 }
