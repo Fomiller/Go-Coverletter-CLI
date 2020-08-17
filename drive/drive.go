@@ -18,6 +18,27 @@ const (
 	TEMPLATE = "1yMx9J4z6cJCVpzp9zXjknkVX6xrtMFufsp_iNv9aZ40"
 )
 
+var driveSrv *drive.Service
+
+func init() {
+	b, err := ioutil.ReadFile("./drive/credentials.json")
+	if err != nil {
+		log.Fatalf("Unable to read client secret file: %v", err)
+	}
+
+	// If modifying these scopes, delete your previously saved token.json.
+	config, err := google.ConfigFromJSON(b, drive.DriveScope)
+	if err != nil {
+		log.Fatalf("Unable to parse client secret file to config: %v", err)
+	}
+	client := getClient(config)
+
+	driveSrv, err = drive.New(client)
+	if err != nil {
+		log.Fatalf("Unable to retrieve Drive client: %v", err)
+	}
+}
+
 // Retrieve a token, saves the token, then returns the generated client.
 func getClient(config *oauth2.Config) *http.Client {
 	// The file token.json stores the user's access and refresh tokens, and is
@@ -74,24 +95,7 @@ func saveToken(path string, token *oauth2.Token) {
 }
 
 func CreateTemplateCopy() string {
-	b, err := ioutil.ReadFile("./drive/credentials.json")
-	if err != nil {
-		log.Fatalf("Unable to read client secret file: %v", err)
-	}
-
-	// If modifying these scopes, delete your previously saved token.json.
-	config, err := google.ConfigFromJSON(b, drive.DriveScope)
-	if err != nil {
-		log.Fatalf("Unable to parse client secret file to config: %v", err)
-	}
-	client := getClient(config)
-
-	srv, err := drive.New(client)
-	if err != nil {
-		log.Fatalf("Unable to retrieve Drive client: %v", err)
-	}
-
-	r, err := srv.Files.List().PageSize(10).
+	r, err := driveSrv.Files.List().PageSize(10).
 		Fields("nextPageToken, files(id, name)").Do()
 	if err != nil {
 		log.Fatalf("Unable to retrieve files: %v", err)
@@ -108,7 +112,7 @@ func CreateTemplateCopy() string {
 	fmt.Println("\n<---------------------------->\n")
 	fmt.Println("List Call")
 
-	fl, err := srv.Files.List().Q("name='Cover Letter Template'").Do()
+	fl, err := driveSrv.Files.List().Q("name='Cover Letter Template'").Do()
 	if err != nil {
 		log.Panic("fl: ", err)
 	}
@@ -116,7 +120,7 @@ func CreateTemplateCopy() string {
 
 	fmt.Println("\n<---------------------------->\n")
 	// generate list of ids
-	res, err := srv.Files.GenerateIds().Do()
+	res, err := driveSrv.Files.GenerateIds().Do()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -136,7 +140,7 @@ func CreateTemplateCopy() string {
 	newFile := drive.File{}
 	newFile.Name = copyTitle
 
-	driveRes, err := srv.Files.Copy(TEMPLATE, &newFile).Do()
+	driveRes, err := driveSrv.Files.Copy(TEMPLATE, &newFile).Do()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -149,24 +153,7 @@ func CreateTemplateCopy() string {
 func SearchForFiles(q string) {
 	query := fmt.Sprintf("name contains '%v'", q)
 
-	b, err := ioutil.ReadFile("./drive/credentials.json")
-	if err != nil {
-		log.Fatalf("Unable to read client secret file: %v", err)
-	}
-
-	// If modifying these scopes, delete your previously saved token.json.
-	config, err := google.ConfigFromJSON(b, drive.DriveScope)
-	if err != nil {
-		log.Fatalf("Unable to parse client secret file to config: %v", err)
-	}
-	client := getClient(config)
-
-	srv, err := drive.New(client)
-	if err != nil {
-		log.Fatalf("Unable to retrieve Drive client: %v", err)
-	}
-
-	fl, err := srv.Files.List().Q(query).Do()
+	fl, err := driveSrv.Files.List().Q(query).Do()
 	if err != nil {
 		log.Panic("fl: ", err)
 	}
@@ -178,28 +165,11 @@ func SearchForFiles(q string) {
 }
 
 func NewTemplate(newFileName string) string {
-	b, err := ioutil.ReadFile("./drive/credentials.json")
-	if err != nil {
-		log.Fatalf("Unable to read client secret file: %v", err)
-	}
-
-	// If modifying these scopes, delete your previously saved token.json.
-	config, err := google.ConfigFromJSON(b, drive.DriveScope)
-	if err != nil {
-		log.Fatalf("Unable to parse client secret file to config: %v", err)
-	}
-	client := getClient(config)
-
-	srv, err := drive.New(client)
-	if err != nil {
-		log.Fatalf("Unable to retrieve Drive client: %v", err)
-	}
-
 	// **** make this a dynamic value ***
 	newFile := drive.File{}
 	newFile.Name = newFileName
 
-	driveRes, err := srv.Files.Copy(TEMPLATE, &newFile).Do()
+	driveRes, err := driveSrv.Files.Copy(TEMPLATE, &newFile).Do()
 	if err != nil {
 		log.Fatal(err)
 	}
