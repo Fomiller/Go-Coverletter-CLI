@@ -177,10 +177,14 @@ func UpdateTemplateFile(templateId string) string {
 }
 
 func CreateReplaceStruct(m map[string]string) []*docs.Request {
+	// create slice to store request objects.
 	var rss []*docs.Request
-	fmt.Println(m)
-	for k, val := range m {
-		key := fmt.Sprintf("{{%v}}", strings.ToUpper(k))
+	// create a request object for each key value pair
+	for key, val := range m {
+		// remove any trailing white space after a comma or  quotation marks in field flags
+		key = strings.TrimSpace(key)
+		// capitilize and parse templating format
+		key = fmt.Sprintf("{{%v}}", strings.ToUpper(key))
 		rs := docs.Request{
 			ReplaceAllText: &docs.ReplaceAllTextRequest{
 				ContainsText: &docs.SubstringMatchCriteria{
@@ -218,6 +222,5 @@ func NewUpdateTemplateFile(templateId string, rs []*docs.Request) string {
 	if err != nil {
 		log.Fatalf("BATCH FAIL %v ", err)
 	}
-	fmt.Printf("SUCCESSFUL BATCH UPDATE: %v \n", batchRes.DocumentId)
 	return batchRes.DocumentId
 }
