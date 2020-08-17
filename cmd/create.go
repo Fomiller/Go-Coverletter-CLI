@@ -33,21 +33,13 @@ var createCmd = &cobra.Command{
 	*All keys are automatically capitalized to match fields in Google doc template ex: '{{NAME}}'`,
 
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Created: %v\n", NewFileName)
+		fmt.Printf("Creating: %v\n", NewFileName)
 		fmt.Printf("Using template: %v\n", Template)
-		fmt.Println("Fields edited in your template:")
 		docId := drive.NewTemplate(NewFileName)
-
 		replaceStruct := docs.CreateReplaceStruct(FieldMap)
-
-		fmt.Println(replaceStruct)
+		// fmt.Println(replaceStruct)
 		docs.NewUpdateTemplateFile(docId, replaceStruct)
-		fmt.Println("success")
-		// for i, v := range replaceStruct {
-		// 	fmt.Printf("struct #:%v\n", i)
-		// 	fmt.Printf("Field Name:%v\n", v.ReplaceAllText.ContainsText.Text)
-		// 	fmt.Printf("Field Text:%v\n", v.ReplaceAllText.ReplaceText)
-		// }
+		fmt.Println("New File Created")
 	},
 }
 
