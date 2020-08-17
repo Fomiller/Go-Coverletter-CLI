@@ -176,3 +176,35 @@ func SearchForFiles(q string) {
 	}
 
 }
+
+func NewTemplate(s string) string {
+	b, err := ioutil.ReadFile("./drive/credentials.json")
+	if err != nil {
+		log.Fatalf("Unable to read client secret file: %v", err)
+	}
+
+	// If modifying these scopes, delete your previously saved token.json.
+	config, err := google.ConfigFromJSON(b, drive.DriveScope)
+	if err != nil {
+		log.Fatalf("Unable to parse client secret file to config: %v", err)
+	}
+	client := getClient(config)
+
+	srv, err := drive.New(client)
+	if err != nil {
+		log.Fatalf("Unable to retrieve Drive client: %v", err)
+	}
+
+	// **** make this a dynamic value ***
+	copyTitle := s
+	newFile := drive.File{}
+	newFile.Name = copyTitle
+
+	driveRes, err := srv.Files.Copy(TEMPLATE, &newFile).Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+	// print document id if successful.
+	fmt.Println("FILE/DOCUMENT-ID: ", driveRes.Id)
+	return driveRes.Id
+}
