@@ -109,18 +109,19 @@ func TemplateFromFunc(rs []*docs.Request) *docs.BatchUpdateDocumentRequest {
 	return template
 }
 
-func UpdateTemplateFile(templateId string) string {
-	// **** make this file a dynamic file ****
-	tpl, err := templateFromFile("./docs/template.json")
-	batchRes, err := docSrv.Documents.BatchUpdate(templateId, tpl).Do()
-	if err != nil {
-		log.Fatalf("BATCH FAIL %v ", err)
-	}
-	fmt.Printf("SUCCESSFUL BATCH UPDATE: %v \n", batchRes.DocumentId)
-	return batchRes.DocumentId
-}
+// OLD FUNCTION NEEDS TO BE REMOVED BROKEN APRART
+// func UpdateTemplateFile(templateId string) string {
+// 	// **** make this file a dynamic file ****
+// 	tpl, err := templateFromFile("./docs/template.json")
+// 	batchRes, err := docSrv.Documents.BatchUpdate(templateId, tpl).Do()
+// 	if err != nil {
+// 		log.Fatalf("BATCH FAIL %v ", err)
+// 	}
+// 	fmt.Printf("SUCCESSFUL BATCH UPDATE: %v \n", batchRes.DocumentId)
+// 	return batchRes.DocumentId
+// }
 
-func CreateReplaceStruct(m map[string]string) []*docs.Request {
+func CreateRequestStruct(m map[string]string) []*docs.Request {
 	// create slice to store request objects.
 	var rss []*docs.Request
 	// create a request object for each key value pair
