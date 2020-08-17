@@ -36,7 +36,7 @@ var createCmd = &cobra.Command{
 		fmt.Printf("Creating: %v\n", NewFileName)
 		fmt.Printf("Using template: %v\n", Template)
 		docId := drive.NewTemplate(NewFileName)
-		replaceStruct := docs.CreateReplaceStruct(FieldMap)
+		replaceStruct := docs.CreateRequestStruct(FieldMap)
 		// fmt.Println(replaceStruct)
 		docs.NewUpdateTemplateFile(docId, replaceStruct)
 		fmt.Println("New File Created")
