@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/fomiller/scribe/docs"
+	"github.com/fomiller/scribe/drive"
 
 	"github.com/spf13/cobra"
 )
@@ -35,12 +36,18 @@ var createCmd = &cobra.Command{
 		fmt.Printf("Created: %v\n", NewFileName)
 		fmt.Printf("Using template: %v\n", Template)
 		fmt.Println("Fields edited in your template:")
+		docId := drive.NewTemplate(NewFileName)
+
 		replaceStruct := docs.CreateReplaceStruct(FieldMap)
-		for i, v := range replaceStruct {
-			fmt.Printf("struct #:%v\n", i)
-			fmt.Printf("Field Name:%v\n", v.ReplaceAllText.ContainsText.Text)
-			fmt.Printf("Field Text:%v\n", v.ReplaceAllText.ReplaceText)
-		}
+
+		fmt.Println(replaceStruct)
+		docs.NewUpdateTemplateFile(docId, replaceStruct)
+		fmt.Println("success")
+		// for i, v := range replaceStruct {
+		// 	fmt.Printf("struct #:%v\n", i)
+		// 	fmt.Printf("Field Name:%v\n", v.ReplaceAllText.ContainsText.Text)
+		// 	fmt.Printf("Field Text:%v\n", v.ReplaceAllText.ReplaceText)
+		// }
 	},
 }
 
