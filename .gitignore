@@ -16,8 +16,8 @@
 
 # API Key and token.json
 # drive
-./drive/credentials.json
-./drive/token.json
+credentials.json
+token.json
 # docs
-./docs/credentials.json
-./docs/token.json
+# credentials.json
+# token.json
