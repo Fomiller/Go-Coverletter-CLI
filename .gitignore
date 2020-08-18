@@ -15,9 +15,6 @@
 # vendor/
 
 # API Key and token.json
-# drive
 credentials.json
 token.json
-# docs
-# credentials.json
-# token.json
+
