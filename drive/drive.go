@@ -175,3 +175,23 @@ func NewTemplate(newFileName string) string {
 
 	return driveRes.Id
 }
+
+func DownloadFile() {
+	fileCall := driveSrv.Files.Export(TEMPLATE, "application/pdf")
+	res, err := fileCall.Download()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = ioutil.WriteFile("testing.pdf", body, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+}
