@@ -3,7 +3,7 @@
 *.exe~
 *.dll
 *.so
-*.dylib
+*.dylibit
 
 # Test binary, built with `go test -c`
 *.test
@@ -13,6 +13,7 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+./output
 
 # API Key and token.json
 credentials.json
