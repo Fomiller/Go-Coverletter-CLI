@@ -38,6 +38,9 @@ var createCmd = &cobra.Command{
 		docId := drive.NewTemplate(NewFileName)
 		replaceStruct := docs.CreateRequestStruct(FieldMap)
 		docs.NewUpdateTemplateFile(docId, replaceStruct)
+		if DlFile == true {
+			drive.DownloadFile(docId, NewFileName)
+		}
 		fmt.Println("New File Created")
 	},
 }
