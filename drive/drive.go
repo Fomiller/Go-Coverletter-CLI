@@ -176,8 +176,10 @@ func NewTemplate(newFileName string) string {
 	return driveRes.Id
 }
 
-func DownloadFile() {
-	fileCall := driveSrv.Files.Export(TEMPLATE, "application/pdf")
+func DownloadFile(fileId string, fileName string) {
+	path := "output"
+	fileName = fmt.Sprintf("%v.pdf", fileName)
+	fileCall := driveSrv.Files.Export(fileId, "application/pdf")
 	res, err := fileCall.Download()
 	if err != nil {
 		log.Fatal(err)
@@ -189,7 +191,11 @@ func DownloadFile() {
 		log.Fatal(err)
 	}
 
-	err = ioutil.WriteFile("testing.pdf", body, 0644)
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		os.Mkdir(path, 0644)
+	}
+
+	err = ioutil.WriteFile(fmt.Sprintf("./%v/%v", path, fileName), body, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
