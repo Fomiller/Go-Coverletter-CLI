@@ -12,6 +12,7 @@ import (
 
 var cfgFile string
 var userLicense string
+var DlFile bool
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -21,24 +22,7 @@ var rootCmd = &cobra.Command{
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) {
-	// 	if len(args) == 0 {
-	// 		cmdList := []string{}
-	// 		rcmds := cmd.Commands()
-	// 		for _, v := range rcmds {
-	// 			cmdList = append(cmdList, v.Use)
-	// 		}
-	// 		prompt := promptui.Select{
-	// 			Keys:  &promptui.SelectKeys{Next: down, Prev: up, PageUp: left, PageDown: right},
-	// 			Label: "Select a command",
-	// 			Items: cmdList,
-	// 		}
-	// 		_, result, err := prompt.Run()
-	// 		if err != nil {
-	// 			fmt.Printf("Prompt failed %v\n", err)
-	// 			return
-	// 		}
-	// 		fmt.Printf("You choose %q\n", result)
-	// 	}
+	// 	fmt.Println(DownloadFile)
 	// },
 }
 
@@ -59,6 +43,7 @@ func init() {
 	// will be global for your application.
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.coverletter.yaml)")
+	rootCmd.PersistentFlags().BoolVarP(&DlFile, "download", "d", false, "download file")
 	// rootCmd.PersistentFlags().StringP("author", "a", "YOUR NAME", "author name for copyright attribution")
 	// rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
 	// rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
