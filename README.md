@@ -5,6 +5,17 @@
 * Cobra
 * promptui
 
+ToDo Features
+- [ ] Mercury
+- [x] Venus
+- [x] Earth (Orbit/Moon)
+- [x] Mars
+- [ ] Jupiter
+- [ ] Saturn
+- [ ] Uranus
+- [ ] Neptune
+- [ ] Comet Haley
+
 ## Useful links
 
 tutorial  
