@@ -15,6 +15,12 @@ https://hackernoon.com/improve-your-command-line-go-application-with-promptui-25
 
 https://github.com/manifoldco/promptui  
 
+https://manifold.co/blog/improve-your-command-line-go-application-with-promptui-6c4e6fb5a1bc
+
+https://gist.github.com/jdaily/ae9640750d1d73170312963e720075d6
+
+similar to inquirer js
+https://github.com/AlecAivazis/survey
 
 testings
 
