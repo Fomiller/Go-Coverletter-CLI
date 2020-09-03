@@ -3,7 +3,8 @@
 ## Tech Used
 * Go
 * Cobra
-* promptui
+* Promptui
+* Survey
 
 ToDo Features
 - [ ] create a config/setup command
