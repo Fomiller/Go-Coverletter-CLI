@@ -10,7 +10,7 @@ import (
 )
 
 var FieldMap map[string]string
-var Template string
+var TemplateName string
 var NewFileName string
 
 // createCmd represents the create command
@@ -33,15 +33,26 @@ var createCmd = &cobra.Command{
 	*All keys are automatically capitalized to match fields in Google doc template ex: '{{NAME}}'`,
 
 	Run: func(cmd *cobra.Command, args []string) {
+		// print out the name of the file being downloaded
 		fmt.Printf("Creating: %v\n", NewFileName)
-		fmt.Printf("Using template: %v\n", Template)
-		docId := drive.NewTemplate(NewFileName)
+		// print out the name of the template being used
+		fmt.Printf("Using template: %v\n", TemplateName)
+		// Get Template Id from the template name
+		templateId := drive.GetTemplate(TemplateName)
+		// create and return docId for new file using NewFileName and the templateID from TemplateName,
+		docId := drive.NewTemplate(NewFileName, templateId)
+		// create replace struct from field flags
+		// **fields to be changed inside the document/template
 		replaceStruct := docs.CreateRequestStruct(FieldMap)
+		// update the newfile using the docId with the replace struct
 		docs.NewUpdateTemplateFile(docId, replaceStruct)
+
+		fmt.Println("New File Created")
+
 		if DlFile == true {
 			drive.DownloadFile(docId, NewFileName)
+			fmt.Println("New File Downloaded")
 		}
-		fmt.Println("New File Created")
 	},
 }
 
@@ -58,6 +69,6 @@ func init() {
 	// is called directly, e.g.:
 	// createCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	createCmd.Flags().StringToStringVarP(&FieldMap, "field", "f", nil, "use this to fill out custom fields")
-	createCmd.Flags().StringVarP(&Template, "template", "t", "", "Enter the name of the template you would like to use.")
+	createCmd.Flags().StringVarP(&TemplateName, "template", "t", "", "Enter the name of the template you would like to use.")
 	createCmd.Flags().StringVarP(&NewFileName, "name", "n", "nil", "Enter the name of the new file.")
 }
