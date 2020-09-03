@@ -14,10 +14,6 @@ import (
 	"google.golang.org/api/drive/v3"
 )
 
-const (
-	TEMPLATE = "1yMx9J4z6cJCVpzp9zXjknkVX6xrtMFufsp_iNv9aZ40"
-)
-
 var driveSrv *drive.Service
 
 func init() {
@@ -111,8 +107,8 @@ func SearchForFiles(q string) {
 }
 
 // return template Id from specified templateName
-func GetTemplate(templateName string) string {
-	query := fmt.Sprintf("name='%v'", templateName)
+func GetFileId(File string) string {
+	query := fmt.Sprintf("name='%v'", File)
 
 	driveRes, err := driveSrv.Files.List().Q(query).Do()
 	if err != nil {
@@ -157,6 +153,14 @@ func DownloadFile(fileId string, fileName string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+}
+
+func DeleteFile(docId string) error {
+	// delete file from drive
+	err := driveSrv.Files.Delete(docId).Do()
+	// return err
+	return err
 
 }
 
