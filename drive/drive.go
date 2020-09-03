@@ -94,6 +94,72 @@ func saveToken(path string, token *oauth2.Token) {
 	json.NewEncoder(f).Encode(token)
 }
 
+// returns a list of files and file Ids that contain the query string
+func SearchForFiles(q string) {
+	query := fmt.Sprintf("name contains '%v'", q)
+
+	fl, err := driveSrv.Files.List().Q(query).Do()
+	if err != nil {
+		log.Panic("fl: ", err)
+	}
+
+	for i, v := range fl.Files {
+		fmt.Printf("%v: %v\n", i, v.Name)
+		fmt.Printf("%v: %v\n", i, v.Id)
+	}
+
+}
+
+// return template Id from specified templateName
+func GetTemplate(templateName string) string {
+	query := fmt.Sprintf("name='%v'", templateName)
+
+	driveRes, err := driveSrv.Files.List().Q(query).Do()
+	if err != nil {
+		log.Panic("fl: ", err)
+	}
+
+	return driveRes.Files[0].Id
+}
+
+func NewTemplate(newFileName string, templateId string) string {
+	newFile := drive.File{}
+	newFile.Name = newFileName
+
+	driveRes, err := driveSrv.Files.Copy(templateId, &newFile).Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return driveRes.Id
+}
+
+func DownloadFile(fileId string, fileName string) {
+	path := "output"
+	fileName = fmt.Sprintf("%v.pdf", fileName)
+	fileCall := driveSrv.Files.Export(fileId, "application/pdf")
+	res, err := fileCall.Download()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		os.Mkdir(path, 0644)
+	}
+
+	err = ioutil.WriteFile(fmt.Sprintf("./%v/%v", path, fileName), body, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+}
+
 // OLD FUNCTION NEEDS TO BE REMOVED BROKEN APRART
 // func CreateTemplateCopy() string {
 // 	r, err := driveSrv.Files.List().PageSize(10).
@@ -149,55 +215,3 @@ func saveToken(path string, token *oauth2.Token) {
 // 	fmt.Println("FILE/DOCUMENT-ID: ", driveRes.Id)
 // 	return driveRes.Id
 // }
-
-func SearchForFiles(q string) {
-	query := fmt.Sprintf("name contains '%v'", q)
-
-	fl, err := driveSrv.Files.List().Q(query).Do()
-	if err != nil {
-		log.Panic("fl: ", err)
-	}
-	fmt.Println(fl.Files[0])
-	for i, v := range fl.Files {
-		fmt.Printf("%v: %v\n", i, v.Name)
-	}
-
-}
-
-func NewTemplate(newFileName string) string {
-	newFile := drive.File{}
-	newFile.Name = newFileName
-
-	driveRes, err := driveSrv.Files.Copy(TEMPLATE, &newFile).Do()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return driveRes.Id
-}
-
-func DownloadFile(fileId string, fileName string) {
-	path := "output"
-	fileName = fmt.Sprintf("%v.pdf", fileName)
-	fileCall := driveSrv.Files.Export(fileId, "application/pdf")
-	res, err := fileCall.Download()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer res.Body.Close()
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if _, err := os.Stat(path); os.IsNotExist(err) {
-		os.Mkdir(path, 0644)
-	}
-
-	err = ioutil.WriteFile(fmt.Sprintf("./%v/%v", path, fileName), body, 0644)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-}
