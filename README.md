@@ -10,7 +10,7 @@ ToDo Features
 - [ ] create a config/setup command
 - [ ] Ability to read from google sheets / csv files
 - [ ] Allow for taking in objects for fields to be edited
-- [ ] Delete files from drive command
+- [x] Add ability to Delete files from drive
 - [x] Ability to specify template.
 - [x] Download file after filling out template
 - [ ] Set download output path dynamically, flag?
