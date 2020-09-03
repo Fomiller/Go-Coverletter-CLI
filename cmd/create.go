@@ -38,7 +38,7 @@ var createCmd = &cobra.Command{
 		// print out the name of the template being used
 		fmt.Printf("Using template: %v\n", TemplateName)
 		// Get Template Id from the template name
-		templateId := drive.GetTemplate(TemplateName)
+		templateId := drive.GetFileId(TemplateName)
 		// create and return docId for new file using NewFileName and the templateID from TemplateName,
 		docId := drive.NewTemplate(NewFileName, templateId)
 		// create replace struct from field flags
