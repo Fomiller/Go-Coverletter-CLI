@@ -92,13 +92,16 @@ func saveToken(path string, token *oauth2.Token) {
 
 // returns a list of files and file Ids that contain the query string
 func SearchForFiles(q string) {
+	// create query
+	// more info about creating queries can be found https://developers.google.com/drive/api/v3/search-files
 	query := fmt.Sprintf("name contains '%v'", q)
-
+	// query drive
 	fl, err := driveSrv.Files.List().Q(query).Do()
 	if err != nil {
 		log.Panic("fl: ", err)
 	}
 
+	// print out files found
 	for i, v := range fl.Files {
 		fmt.Printf("%v: %v\n", i, v.Name)
 		fmt.Printf("%v: %v\n", i, v.Id)
@@ -107,50 +110,63 @@ func SearchForFiles(q string) {
 
 // return template Id from specified templateName
 func GetFileId(File string) string {
+	// create query where file matches query exactly
+	// more info about creating queries can be found https://developers.google.com/drive/api/v3/search-files
 	query := fmt.Sprintf("name='%v'", File)
-
+	// search drive for the matching query
 	driveRes, err := driveSrv.Files.List().Q(query).Do()
 	if err != nil {
 		log.Panic("fl: ", err)
 	}
 
+	// return the file Id
 	return driveRes.Files[0].Id
 }
 
 // create a new file from Template, takes in a fileName and a docId in the form of templateId
 func NewTemplate(newFileName string, templateId string) string {
+	// create a new file struct
 	newFile := drive.File{}
+	// set newFile name
 	newFile.Name = newFileName
 
+	// copy the template using the information stored in newFile
 	driveRes, err := driveSrv.Files.Copy(templateId, &newFile).Do()
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	// return the newFile Id
 	return driveRes.Id
 }
 
 // download a file to output folder
 // TODO*** make the output directory and dynamic value; specified by a flag??
 func DownloadFile(fileId string, fileName string) {
+	// set out put folder name
 	path := "output"
+	// append file type to file name
 	fileName = fmt.Sprintf("%v.pdf", fileName)
+	// create call to export file from drive
 	fileCall := driveSrv.Files.Export(fileId, "application/pdf")
+	// execute download of file call
 	res, err := fileCall.Download()
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer res.Body.Close()
 
+	// read the res.Body
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	// check if output folder if exists, if not then create the folder
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		os.Mkdir(path, 0644)
 	}
 
+	// write the file to specified folder
 	err = ioutil.WriteFile(fmt.Sprintf("./%v/%v", path, fileName), body, 0644)
 	if err != nil {
 		log.Fatal(err)
