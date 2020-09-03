@@ -10,6 +10,7 @@ ToDo Features
 - [ ] Ability to read from google sheets / csv files
 - [ ] Allow for taking in objects for fields to be edited
 - [ ] Delete files from drive command
+- [x] Ability to specify template.
 - [x] Download file after filling out template
 - [ ] Set download output path dynamically, flag?
 - [ ] Ability to parse a template and return the fields needed to fill out the template
