@@ -103,7 +103,6 @@ func SearchForFiles(q string) {
 		fmt.Printf("%v: %v\n", i, v.Name)
 		fmt.Printf("%v: %v\n", i, v.Id)
 	}
-
 }
 
 // return template Id from specified templateName
@@ -118,6 +117,7 @@ func GetFileId(File string) string {
 	return driveRes.Files[0].Id
 }
 
+// create a new file from Template, takes in a fileName and a docId in the form of templateId
 func NewTemplate(newFileName string, templateId string) string {
 	newFile := drive.File{}
 	newFile.Name = newFileName
@@ -130,6 +130,8 @@ func NewTemplate(newFileName string, templateId string) string {
 	return driveRes.Id
 }
 
+// download a file to output folder
+// TODO*** make the output directory and dynamic value; specified by a flag??
 func DownloadFile(fileId string, fileName string) {
 	path := "output"
 	fileName = fmt.Sprintf("%v.pdf", fileName)
@@ -153,13 +155,12 @@ func DownloadFile(fileId string, fileName string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 }
 
+// delete file from drive
 func DeleteFile(docId string) error {
 	// delete file from drive
 	err := driveSrv.Files.Delete(docId).Do()
 	// return err
 	return err
-
 }
