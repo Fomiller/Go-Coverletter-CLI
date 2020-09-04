@@ -3,6 +3,7 @@ module github.com/fomiller/scribe
 go 1.14
 
 require (
+	github.com/AlecAivazis/survey/v2 v2.1.1
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e
 	github.com/manifoldco/promptui v0.7.0
 	github.com/mitchellh/go-homedir v1.1.0
