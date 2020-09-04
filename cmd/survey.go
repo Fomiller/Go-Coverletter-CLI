@@ -18,21 +18,52 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/AlecAivazis/survey/v2"
 	"github.com/spf13/cobra"
 )
+
+// the questions to ask
+var qs = []*survey.Question{
+	{
+		Name:      "name",
+		Prompt:    &survey.Input{Message: "What is your name?"},
+		Validate:  survey.Required,
+		Transform: survey.Title,
+	},
+	{
+		Name: "color",
+		Prompt: &survey.Select{
+			Message: "Choose a color:",
+			Options: []string{"red", "blue", "green"},
+			Default: "red",
+		},
+	},
+	{
+		Name:   "age",
+		Prompt: &survey.Input{Message: "How old are you?"},
+	},
+}
 
 // surveyCmd represents the survey command
 var surveyCmd = &cobra.Command{
 	Use:   "survey",
 	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("survey called")
+		answers := struct {
+			Name          string // survey will match the question and field names
+			FavoriteColor string `survey:"color"` // or you can tag fields to match a specific name
+			Age           int    // if the types don't match, survey will convert it
+		}{}
+
+		// perform the questions
+		err := survey.Ask(qs, &answers)
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		fmt.Printf("%s chose %s.", answers.Name, answers.FavoriteColor)
+
 	},
 }
 
