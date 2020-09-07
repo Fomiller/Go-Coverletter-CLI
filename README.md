@@ -3,7 +3,6 @@
 ## Tech Used
 * Go
 * Cobra
-* Promptui
 * Survey
 
 ToDo Features
@@ -15,7 +14,7 @@ ToDo Features
 - [x] Download file after filling out template
 - [ ] Set download output path dynamically, flag?
 - [ ] Ability to parse a template and return the fields needed to fill out the template
-- [ ] interactive command line ability with promptui
+- [x] interactive command line ability with survey
 - [ ] Research how to install and setup on end user computer without go installed. 
 
 
