@@ -25,22 +25,22 @@ import (
 // the questions to ask
 var qs = []*survey.Question{
 	{
-		Name:      "name",
-		Prompt:    &survey.Input{Message: "What is your name?"},
-		Validate:  survey.Required,
-		Transform: survey.Title,
+		Name:     "fileName",
+		Prompt:   &survey.Input{Message: "What is your new file name"},
+		Validate: survey.Required,
 	},
 	{
-		Name: "color",
-		Prompt: &survey.Select{
-			Message: "Choose a color:",
-			Options: []string{"red", "blue", "green"},
-			Default: "red",
+		Name:     "templateName",
+		Prompt:   &survey.Input{Message: "What is the name of the template you want to use"},
+		Validate: survey.Required,
+	},
+	{
+		Name: "download",
+		Prompt: &survey.Confirm{
+			Message: "Do you want to download this file?",
+			Default: false,
 		},
-	},
-	{
-		Name:   "age",
-		Prompt: &survey.Input{Message: "How old are you?"},
+		Validate: survey.Required,
 	},
 }
 
@@ -50,9 +50,9 @@ var surveyCmd = &cobra.Command{
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
 		answers := struct {
-			Name          string // survey will match the question and field names
-			FavoriteColor string `survey:"color"` // or you can tag fields to match a specific name
-			Age           int    // if the types don't match, survey will convert it
+			FileName     string // survey will match the question and field names
+			TemplateName string `survey:"templateName"` // or you can tag fields to match a specific name
+			Download     bool   // if the types don't match, survey will convert it
 		}{}
 
 		// perform the questions
@@ -62,7 +62,7 @@ var surveyCmd = &cobra.Command{
 			return
 		}
 
-		fmt.Printf("%s chose %s.", answers.Name, answers.FavoriteColor)
+		fmt.Printf("%s chose %s, and download was set to %v.", answers.FileName, answers.TemplateName, answers.Download)
 
 	},
 }
