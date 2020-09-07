@@ -20,6 +20,8 @@ import (
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/fomiller/scribe/docs"
+	"github.com/fomiller/scribe/drive"
 	"github.com/spf13/cobra"
 )
 
@@ -54,8 +56,6 @@ var surveyCmd = &cobra.Command{
 	Use:   "survey",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		// var test map[string]string
-
 		answers := struct {
 			FileName     string // survey will match the question and field names
 			TemplateName string `survey:"templateName"` // or you can tag fields to match a specific name
@@ -69,17 +69,35 @@ var surveyCmd = &cobra.Command{
 			fmt.Println(err.Error())
 			return
 		}
+		// set NewFileName, TemplateName, DlFile to recorded answers from survey
+		NewFileName = answers.FileName
+		TemplateName = answers.TemplateName
+		DlFile = answers.Download
 
-		fmt.Printf("%s chose %s, and download was set to %v, %v", answers.FileName, answers.TemplateName, answers.Download, answers.Fields)
-
+		// Unmarshal answer.Fields into type FieldMap map[string]string
 		json.Unmarshal([]byte(answers.Fields), &FieldMap)
-		fmt.Println("------------")
-		for k, v := range FieldMap {
-			fmt.Printf("key:%v\n", k)
-			fmt.Printf("value:%v\n", v)
-			fmt.Printf("---------\n")
-		}
 
+		fmt.Println("\n")
+		// print out the name of the file being downloaded
+		fmt.Printf("Creating: %v\n", NewFileName)
+		// print out the name of the template being used
+		fmt.Printf("Using template: %v\n", TemplateName)
+		// Get Template Id from the template name
+		templateId := drive.GetFileId(TemplateName)
+		// create and return docId for new file using NewFileName and the templateID from TemplateName,
+		docId := drive.NewTemplate(NewFileName, templateId)
+		// create replace struct from field flags
+		// **fields to be changed inside the document/template
+		replaceStruct := docs.CreateRequestStruct(FieldMap)
+		// update the newfile using the docId with the replace struct
+		docs.NewUpdateTemplateFile(docId, replaceStruct)
+
+		fmt.Println("New File Created")
+
+		if DlFile == true {
+			drive.DownloadFile(docId, NewFileName)
+			fmt.Println("New File Downloaded")
+		}
 	},
 }
 
