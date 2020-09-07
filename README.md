@@ -21,6 +21,9 @@ ToDo Features
 
 ## Useful links
 
+strings to map
+https://stackoverflow.com/questions/35663892/parse-string-into-map-golang/35664442
+
 tutorial  
 https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html#adding-flags
 
