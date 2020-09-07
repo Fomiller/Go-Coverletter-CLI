@@ -16,6 +16,7 @@ limitations under the License.
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
@@ -35,6 +36,10 @@ var qs = []*survey.Question{
 		Validate: survey.Required,
 	},
 	{
+		Name:   "Fields",
+		Prompt: &survey.Input{Message: "Enter a JSON object of string to string key value pairs that you would like replaced in your document"},
+	},
+	{
 		Name: "download",
 		Prompt: &survey.Confirm{
 			Message: "Do you want to download this file?",
@@ -49,10 +54,13 @@ var surveyCmd = &cobra.Command{
 	Use:   "survey",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
+		// var test map[string]string
+
 		answers := struct {
 			FileName     string // survey will match the question and field names
 			TemplateName string `survey:"templateName"` // or you can tag fields to match a specific name
 			Download     bool   // if the types don't match, survey will convert it
+			Fields       string
 		}{}
 
 		// perform the questions
@@ -62,7 +70,15 @@ var surveyCmd = &cobra.Command{
 			return
 		}
 
-		fmt.Printf("%s chose %s, and download was set to %v.", answers.FileName, answers.TemplateName, answers.Download)
+		fmt.Printf("%s chose %s, and download was set to %v, %v", answers.FileName, answers.TemplateName, answers.Download, answers.Fields)
+
+		json.Unmarshal([]byte(answers.Fields), &FieldMap)
+		fmt.Println("------------")
+		for k, v := range FieldMap {
+			fmt.Printf("key:%v\n", k)
+			fmt.Printf("value:%v\n", v)
+			fmt.Printf("---------\n")
+		}
 
 	},
 }
