@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/fomiller/scribe/docs"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -171,6 +172,25 @@ func DownloadFile(fileId string, fileName string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func ReadBody(fileId string) {
+	// create call to export file from drive
+	fileCall := driveSrv.Files.Export(fileId, "text/html")
+	// execute download of file call
+	res, err := fileCall.Download()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer res.Body.Close()
+
+	// read the res.Body
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	strBody := string(body)
+	docs.ParseTemplateFields(strBody)
 }
 
 // delete file from drive

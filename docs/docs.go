@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 	"strings"
 
 	"golang.org/x/net/context"
@@ -151,4 +152,12 @@ func NewUpdateTemplateFile(templateId string, rs []*docs.Request) string {
 		log.Fatalf("BATCH FAIL %v ", err)
 	}
 	return batchRes.DocumentId
+}
+
+func ParseTemplateFields(str string) {
+	rgx := regexp.MustCompile(`{{([A-Za-z_]*)}}`)
+	rs := rgx.FindAllStringSubmatch(str, -1)
+	for _, v := range rs {
+		fmt.Println(v[1])
+	}
 }
