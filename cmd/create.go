@@ -10,8 +10,6 @@ import (
 )
 
 var FieldMap map[string]string
-var TemplateName string
-var NewFileName string
 
 // createCmd represents the create command
 var createCmd = &cobra.Command{
@@ -69,6 +67,4 @@ func init() {
 	// is called directly, e.g.:
 	// createCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	createCmd.Flags().StringToStringVarP(&FieldMap, "field", "f", nil, "use this to fill out custom fields")
-	createCmd.Flags().StringVarP(&TemplateName, "template", "t", "", "Enter the name of the template you would like to use.")
-	createCmd.Flags().StringVarP(&NewFileName, "name", "n", "nil", "Enter the name of the new file.")
 }
