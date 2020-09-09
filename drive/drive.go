@@ -204,7 +204,7 @@ func ParseTemplateFields(fileId string) []string {
 	rs := rgx.FindAllStringSubmatch(strBody, -1)
 	// push parsed fields to a parsed fields []string
 	for _, v := range rs {
-		parsedFields = append(parsedFields, v[1])
+		parsedFields = AppendIfMissing(parsedFields, v[1])
 	}
 	// return parsed fields
 	return parsedFields
@@ -216,4 +216,13 @@ func DeleteFile(docId string) error {
 	err := driveSrv.Files.Delete(docId).Do()
 	// return err
 	return err
+}
+
+func AppendIfMissing(slice []string, s string) []string {
+	for _, str := range slice {
+		if str == s {
+			return slice
+		}
+	}
+	return append(slice, s)
 }
