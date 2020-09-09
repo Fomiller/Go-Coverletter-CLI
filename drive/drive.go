@@ -110,18 +110,22 @@ func SearchForFiles(q string) {
 }
 
 // return template Id from specified templateName
-func GetFileId(File string) string {
+func GetFileId(File string) (string, error) {
 	// create query where file matches query exactly
 	// more info about creating queries can be found https://developers.google.com/drive/api/v3/search-files
 	query := fmt.Sprintf("name='%v'", File)
 	// search drive for the matching query
 	driveRes, err := driveSrv.Files.List().Q(query).Do()
 	if err != nil {
-		log.Panic("fl: ", err)
+		return "", err
 	}
-
-	// return the file Id
-	return driveRes.Files[0].Id
+	if len(driveRes.Files) == 0 {
+		log.Fatal("Could not find file, please check your search")
+	}
+	if len(driveRes.Files) > 1 {
+		log.Fatal("Found more then 1 file, please be more specific with your search")
+	}
+	return driveRes.Files[0].Id, nil
 }
 
 // create a new file from Template, takes in a fileName and a docId in the form of templateId
