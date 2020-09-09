@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// var ParseTemplate string
+var TemplateData = map[string]interface{}{}
 
 // parseCmd represents the parse command
 var parseCmd = &cobra.Command{
@@ -37,6 +37,25 @@ var parseCmd = &cobra.Command{
 		// range over fields and print out
 		for _, v := range parsedFields {
 			fmt.Println(v)
+		}
+
+		qs := []*survey.Question{}
+		for _, v := range parsedFields {
+			q := &survey.Question{
+				Name: v,
+				Prompt: &survey.Input{
+					Message: fmt.Sprintf("%v:", v),
+				},
+				Validate: survey.Required,
+			}
+			qs = append(qs, q)
+		}
+		err = survey.Ask(qs, &TemplateData)
+		if err != nil {
+			log.Fatal(err)
+		}
+		for k, v := range TemplateData {
+			fmt.Printf("%v:%v\n", k, v)
 		}
 	},
 }
