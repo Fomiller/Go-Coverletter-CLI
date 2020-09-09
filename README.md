@@ -35,7 +35,7 @@ https://manifold.co/blog/improve-your-command-line-go-application-with-promptui-
 
 https://gist.github.com/jdaily/ae9640750d1d73170312963e720075d6
 
-similar to inquirer js
+Survey
 https://github.com/AlecAivazis/survey
 
 testings
