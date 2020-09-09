@@ -91,7 +91,6 @@ var surveyCmd = &cobra.Command{
 		// create and return docId for new file using NewFileName and the templateID from TemplateName,
 		docId := drive.NewTemplate(NewFileName, templateId)
 		// create replace struct from field flags
-		// **fields to be changed inside the document/template
 		replaceStruct := docs.CreateRequestStruct(FieldMap)
 		// update the newfile using the docId with the replace struct
 		docs.NewUpdateTemplateFile(docId, replaceStruct)
