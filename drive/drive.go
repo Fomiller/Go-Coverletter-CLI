@@ -178,6 +178,7 @@ func DownloadFile(fileId string, fileName string) {
 	}
 }
 
+// return a slice of fields from a template
 func ParseTemplateFields(fileId string) []string {
 	// create call to export file from drive
 	fileCall := driveSrv.Files.Export(fileId, "text/html")
