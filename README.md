@@ -13,8 +13,11 @@ ToDo Features
 - [x] Ability to specify template.
 - [x] Download file after filling out template
 - [ ] Set download output path dynamically, flag?
-- [ ] Ability to parse a template and return the fields needed to fill out the template
+- [x] Ability to parse a template and return the fields needed to fill out the template
+- [ ] Created a helper function package
 - [x] interactive command line ability with survey
+- [ ] break cobra commands into subcommands
+- [ ] list all available functions at root command with survey
 - [ ] Research how to install and setup on end user computer without go installed. 
 
 
