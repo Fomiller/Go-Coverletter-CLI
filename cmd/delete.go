@@ -31,9 +31,12 @@ var deleteCmd = &cobra.Command{
 	Short: "Delete File from Google Drive",
 	Run: func(cmd *cobra.Command, args []string) {
 		// get docId for file to be deleted
-		docId := drive.GetFileId(deleteFile)
+		docId, err := drive.GetFileId(deleteFile)
+		if err != nil {
+			log.Fatal(err)
+		}
 		// delete file
-		err := drive.DeleteFile(docId)
+		err = drive.DeleteFile(docId)
 		// handle error if necessary
 		if err != nil {
 			log.Fatal(err)

@@ -2,7 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 
+	"github.com/AlecAivazis/survey/v2"
 	"github.com/fomiller/scribe/drive"
 	"github.com/spf13/cobra"
 )
@@ -15,8 +17,21 @@ var parseCmd = &cobra.Command{
 	Short: "Return a list of fields from a template",
 	Long:  `Call Parse command to return a list of fields inside the specified template.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		// if template flag is not used prompt for the template name
+
+		if TemplateName == "" {
+			prompt := &survey.Input{
+				Message: "What Template would you like to use",
+			}
+			survey.AskOne(prompt, &TemplateName)
+			fmt.Println("\n")
+		}
 		// get the docID of the template that needs to be parsed
-		templateId := drive.GetFileId(TemplateName)
+		templateId, err := drive.GetFileId(TemplateName)
+		if err != nil {
+			// log.Fatal(err)
+			log.Fatalf("File could not be found, %v", err)
+		}
 		// insert parsedID and return []string of fields in the template
 		parsedFields := drive.ParseTemplateFields(templateId)
 		// range over fields and print out

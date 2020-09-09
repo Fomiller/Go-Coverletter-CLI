@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/fomiller/scribe/docs"
 	"github.com/fomiller/scribe/drive"
@@ -36,7 +37,10 @@ var createCmd = &cobra.Command{
 		// print out the name of the template being used
 		fmt.Printf("Using template: %v\n", TemplateName)
 		// Get Template Id from the template name
-		templateId := drive.GetFileId(TemplateName)
+		templateId, err := drive.GetFileId(TemplateName)
+		if err != nil {
+			log.Fatal(err)
+		}
 		// create and return docId for new file using NewFileName and the templateID from TemplateName,
 		docId := drive.NewTemplate(NewFileName, templateId)
 		// create replace struct from field flags
