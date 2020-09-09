@@ -12,6 +12,8 @@ import (
 
 var cfgFile string
 var userLicense string
+var TemplateName string
+var NewFileName string
 var DlFile bool
 
 // rootCmd represents the base command when called without any subcommands
@@ -44,6 +46,8 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.coverletter.yaml)")
 	rootCmd.PersistentFlags().BoolVarP(&DlFile, "download", "d", false, "download file")
+	rootCmd.PersistentFlags().StringVarP(&TemplateName, "template", "t", "", "Enter the name of the template you would like to use.")
+	rootCmd.PersistentFlags().StringVarP(&NewFileName, "name", "n", "nil", "Enter the name of the new file.")
 	// rootCmd.PersistentFlags().StringP("author", "a", "YOUR NAME", "author name for copyright attribution")
 	// rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
 	// rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
