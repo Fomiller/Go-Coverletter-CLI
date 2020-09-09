@@ -7,8 +7,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 
-	"github.com/fomiller/scribe/docs"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -174,7 +174,7 @@ func DownloadFile(fileId string, fileName string) {
 	}
 }
 
-func ReadBody(fileId string) {
+func ParseTemplateFields(fileId string) []string {
 	// create call to export file from drive
 	fileCall := driveSrv.Files.Export(fileId, "text/html")
 	// execute download of file call
@@ -182,15 +182,27 @@ func ReadBody(fileId string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	// defer closing response body
 	defer res.Body.Close()
-
 	// read the res.Body
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
+	// convert body []bytes to a string to be used in regex test
 	strBody := string(body)
-	docs.ParseTemplateFields(strBody)
+	// init parsed fields slice to push fields into
+	parsedFields := []string{}
+	// create regex test
+	rgx := regexp.MustCompile(`{{([A-Za-z_]*)}}`)
+	// search document for regex matches
+	rs := rgx.FindAllStringSubmatch(strBody, -1)
+	// push parsed fields to a parsed fields []string
+	for _, v := range rs {
+		parsedFields = append(parsedFields, v[1])
+	}
+	// return parsed fields
+	return parsedFields
 }
 
 // delete file from drive
