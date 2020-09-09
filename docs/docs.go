@@ -154,10 +154,12 @@ func NewUpdateTemplateFile(templateId string, rs []*docs.Request) string {
 	return batchRes.DocumentId
 }
 
-func ParseTemplateFields(str string) {
+func ParseTemplateFields(str string) []string {
+	parsedFields := []string{}
 	rgx := regexp.MustCompile(`{{([A-Za-z_]*)}}`)
 	rs := rgx.FindAllStringSubmatch(str, -1)
 	for _, v := range rs {
-		fmt.Println(v[1])
+		parsedFields = append(parsedFields, v[1])
 	}
+	return parsedFields
 }
