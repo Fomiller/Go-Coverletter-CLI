@@ -29,7 +29,7 @@ var rootCmd = &cobra.Command{
 		var command string
 		prompt := &survey.Select{
 			Message: "Choose a command to run:",
-			Options: []string{"create", "parse", "delete"},
+			Options: []string{"create", "parse", "delete", "multidelete"},
 		}
 		survey.AskOne(prompt, &command)
 
@@ -41,6 +41,8 @@ var rootCmd = &cobra.Command{
 			parseCmd.Run(cmd, args)
 		case "delete":
 			deleteCmd.Run(cmd, args)
+		case "multidelete":
+			multideleteCmd.Run(cmd, args)
 		}
 	},
 }
