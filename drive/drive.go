@@ -115,7 +115,7 @@ func GetFileId(File string) (string, error) {
 	// more info about creating queries can be found https://developers.google.com/drive/api/v3/search-files
 	query := fmt.Sprintf("name='%v'", File)
 	// search drive for the matching query
-	driveRes, err := driveSrv.Files.List().Q(query).Do()
+	driveRes, err := driveSrv.Files.List().Q(query).PageSize(1).Do()
 	if err != nil {
 		return "", err
 	}
@@ -225,4 +225,16 @@ func AppendIfMissing(slice []string, s string) []string {
 		}
 	}
 	return append(slice, s)
+}
+
+func ListFileNames() []string {
+	fileNameList := []string{}
+	drvRes, err := driveSrv.Files.List().Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+	for _, v := range drvRes.Files {
+		fileNameList = append(fileNameList, v.Name)
+	}
+	return fileNameList
 }
