@@ -34,10 +34,10 @@ var parseCmd = &cobra.Command{
 		}
 		// insert parsedID and return []string of fields in the template
 		parsedFields := drive.ParseTemplateFields(templateId)
-		// range over fields and print out
-		for _, v := range parsedFields {
-			fmt.Println(v)
-		}
+		// // range over fields and print out
+		// for _, v := range parsedFields {
+		// 	fmt.Println(v)
+		// }
 
 		qs := []*survey.Question{}
 		for _, v := range parsedFields {
@@ -50,13 +50,23 @@ var parseCmd = &cobra.Command{
 			}
 			qs = append(qs, q)
 		}
+		fmt.Println("Enter data for the corresponding fields in your template")
 		err = survey.Ask(qs, &TemplateData)
 		if err != nil {
 			log.Fatal(err)
 		}
+
+		// convert TemplateData to Fieldmap type map[string]string
+		mapStrStr := make(map[string]string)
 		for k, v := range TemplateData {
-			fmt.Printf("%v:%v\n", k, v)
+			strKey := fmt.Sprintf("%v", k)
+			strValue := fmt.Sprintf("%v", v)
+
+			mapStrStr[strKey] = strValue
 		}
+
+		// set Global FieldMap equal to local mapStrStr for use in other functions if needed
+		FieldMap = mapStrStr
 	},
 }
 
