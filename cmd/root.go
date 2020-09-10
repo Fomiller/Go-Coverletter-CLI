@@ -16,6 +16,7 @@ var userLicense string
 var TemplateName string
 var NewFileName string
 var DlFile bool
+var FieldMap map[string]string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
