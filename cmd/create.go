@@ -95,12 +95,7 @@ var createCmd = &cobra.Command{
 				Default: false,
 			}
 			survey.AskOne(prompt, &answers.Download)
-
-			// err = survey.Ask(createQuestions[2:], &answers.Download)
-			// if err != nil {
-			// 	fmt.Println(err.Error())
-			// 	return
-			// }
+			// set DLFile equal to prompt input
 			DlFile = answers.Download
 
 			// create file from survey
@@ -112,16 +107,6 @@ var createCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(createCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// createCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// createCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 	createCmd.Flags().StringToStringVarP(&FieldMap, "field", "f", nil, "use this to fill out custom fields")
 }
 
