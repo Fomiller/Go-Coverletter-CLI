@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -11,8 +10,6 @@ import (
 
 	"github.com/spf13/cobra"
 )
-
-var FieldMap map[string]string
 
 var createQuestions = []*survey.Question{
 	{
@@ -25,18 +22,14 @@ var createQuestions = []*survey.Question{
 		Prompt:   &survey.Input{Message: "What is the name of the template you want to use"},
 		Validate: survey.Required,
 	},
-	{
-		Name:   "Fields",
-		Prompt: &survey.Input{Message: "Enter a JSON object of string to string key value pairs that you would like replaced in your document"},
-	},
-	{
-		Name: "download",
-		Prompt: &survey.Confirm{
-			Message: "Do you want to download this file?",
-			Default: false,
-		},
-		Validate: survey.Required,
-	},
+	// {
+	// 	Name: "download",
+	// 	Prompt: &survey.Confirm{
+	// 		Message: "Do you want to download this file?",
+	// 		Default: false,
+	// 	},
+	// 	Validate: survey.Required,
+	// },
 }
 
 // createCmd represents the create command
@@ -83,23 +76,32 @@ var createCmd = &cobra.Command{
 				FileName     string // survey will match the question and field names
 				TemplateName string `survey:"templateName"` // or you can tag fields to match a specific name
 				Download     bool   // if the types don't match, survey will convert it
-				Fields       string
 			}{}
 
 			// perform the questions
-			err := survey.Ask(createQuestions, &answers)
+			err := survey.Ask(createQuestions[:2], &answers)
 			if err != nil {
 				fmt.Println(err.Error())
 				return
 			}
-
 			// set NewFileName, TemplateName, DlFile to recorded answers from survey
 			NewFileName = answers.FileName
 			TemplateName = answers.TemplateName
-			DlFile = answers.Download
+			parseCmd.Run(cmd, args)
+			// // Unmarshal answer.Fields into type FieldMap map[string]string
+			// json.Unmarshal([]byte(answers.Fields), &FieldMap)
+			prompt := &survey.Confirm{
+				Message: "Do you want to download this file?",
+				Default: false,
+			}
+			survey.AskOne(prompt, &answers.Download)
 
-			// Unmarshal answer.Fields into type FieldMap map[string]string
-			json.Unmarshal([]byte(answers.Fields), &FieldMap)
+			// err = survey.Ask(createQuestions[2:], &answers.Download)
+			// if err != nil {
+			// 	fmt.Println(err.Error())
+			// 	return
+			// }
+			DlFile = answers.Download
 
 			// create file from survey
 			CreateFile(NewFileName, TemplateName, FieldMap, DlFile)
@@ -145,6 +147,6 @@ func CreateFile(NewFileName string, TemplateName string, FieldMap map[string]str
 
 	if DlFile == true {
 		drive.DownloadFile(docId, NewFileName)
-		fmt.Println("New File Downloaded")
+		fmt.Printf("%v Downloaded", NewFileName)
 	}
 }
