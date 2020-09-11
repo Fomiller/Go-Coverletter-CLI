@@ -20,7 +20,17 @@ var driveSrv *drive.Service
 func init() {
 	b, err := ioutil.ReadFile("./drive/credentials.json")
 	if err != nil {
-		log.Fatalf("Unable to read client secret file: %v", err)
+		log.Fatalf(`%v
+ 
+	Please navigate to https://console.cloud.google.com/apis/credentials, to create and download credentials for a 0Auth client ID.
+
+	Save your new credentials as 'credentials.json' inside the scribe/drive folder.
+			
+	Once credentials are saved to the correct location run 'go install' from the applications root directory.
+			
+	to test your applicaton run 'scribe' in your terminal
+
+`, err)
 	}
 
 	// If modifying these scopes, delete your previously saved token.json.
@@ -53,7 +63,7 @@ func getClient(config *oauth2.Config) *http.Client {
 // Request a token from the web, then returns the retrieved token.
 func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 	authURL := config.AuthCodeURL("state-token", oauth2.AccessTypeOffline)
-	fmt.Printf("Go to the following link in your browser then type the "+
+	fmt.Printf("Go to the following link in your browser, follow the instructions, then type the "+
 		"authorization code: \n%v\n", authURL)
 
 	var authCode string
