@@ -5,7 +5,6 @@
   go get github.com/fomiller/scribe
 
   cd $GOPATH/src/github.com/fomiller/scribe
-
 ```
 Your first time running ```scribe``` you will be asked to create credentials from the google developer console. Follow the instructions given by scribe to complete this process.  
 Once you have created and saved your credentials run ```go install```  
