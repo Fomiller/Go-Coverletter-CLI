@@ -41,6 +41,8 @@ https://gist.github.com/jdaily/ae9640750d1d73170312963e720075d6
 Survey
 https://github.com/AlecAivazis/survey
 
+https://godoc.org/gopkg.in/AlecAivazis/survey.v2
+
 testings
 
 cobra package  
