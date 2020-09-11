@@ -1,7 +1,7 @@
 # Scribe CLI
 
 ## Install
-```
+```bash
   go get github.com/fomiller/scribe
 
   cd $GOPATH/src/github.com/fomiller/scribe
