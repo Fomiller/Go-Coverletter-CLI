@@ -34,10 +34,6 @@ var parseCmd = &cobra.Command{
 		}
 		// insert parsedID and return []string of fields in the template
 		parsedFields := drive.ParseTemplateFields(templateId)
-		// // range over fields and print out
-		// for _, v := range parsedFields {
-		// 	fmt.Println(v)
-		// }
 
 		qs := []*survey.Question{}
 		for _, v := range parsedFields {
