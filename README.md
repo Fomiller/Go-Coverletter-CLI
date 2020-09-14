@@ -12,7 +12,7 @@ Test to make sure your application is working correctly by running ```scribe``` 
 To run Scribe as a command, make sure that your $GOPATH/bin is added to your system $PATH
 
 ### ToDo Features
-- [ ] create a config/setup command
+- [x] create a config file
 - [ ] Ability to read from google sheets / csv files
 - [ ] Allow for taking in objects for fields to be edited
 - [x] Add ability to Delete files from drive
@@ -22,7 +22,6 @@ To run Scribe as a command, make sure that your $GOPATH/bin is added to your sys
 - [x] Ability to parse a template and return the fields needed to fill out the template
 - [ ] Create utils.go for helper functions
 - [x] interactive command line ability with survey
-- [ ] break cobra commands into subcommands
 - [ ] list all available functions at root command with survey
 - [ ] Research how to install and setup on end user computer without go installed. 
 
