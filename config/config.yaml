@@ -1,41 +1,14 @@
 ---
-config:
-  downloadOutput:
-    # This is the default output used by scribe.
-    default: C:\scribe
-    # If the user would like to use a different out the user can define that here.
-    user: ~
-    # If folderGeneration is set to true scribe will parse the file name and create a folder to store the downloaded file in.
-    # EX. The file Google-Resume.pdf, would be downloaded at 
-    # C:\scribe\Google\Google-resume.pdf
-    folderGeneration: true
-  docCredentials: <
-  {
-    "installed": {
-      "client_id": "885059723551-3of4ps4ftfkeikrur711j20uagf26t4l.apps.googleusercontent.com",
-      "project_id": "coverletter-cli-1596568545938",
-      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-      "token_uri": "https://oauth2.googleapis.com/token",
-      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-      "client_secret": "_iNsiNXCqAKYvdtJziNc7-AK",
-      "redirect_uris": [
-        "urn:ietf:wg:oauth:2.0:oob",
-        "http://localhost"
-      ]
-    }
-  }
-  driveCredentials: <
-  {
-    "installed": {
-      "client_id": "929978771834-2a5r39bc8vk2ui3c6aebp3lqc2aqna6g.apps.googleusercontent.com",
-      "project_id": "drive-cli-1596652781489",
-      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-      "token_uri": "https://oauth2.googleapis.com/token",
-      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-      "client_secret": "XCkrOLBZDT_TkOpPaNV_KqrZ",
-      "redirect_uris": [
-        "urn:ietf:wg:oauth:2.0:oob",
-        "http://localhost"
-      ]
-    }
-  }
+downloadOutput: 
+  # This is the default output used by scribe.
+  default: C:\scribe
+  # If the user would like to use a different out the user can define that here.
+  user: ~
+  # If folderGeneration is set to true scribe will parse the file name and create a folder to store the downloaded file in.
+  # EX. The file Google-Resume.pdf, would be downloaded at 
+  # C:\scribe\Google\Google-resume.pdf
+  folderGeneration: true
+# this is the default file name for the credentials file for the google docs API make sure that yours matches this name and is matches this file path: ./docs/credentials.json
+docCredentials: credentials.json
+# this is the default file name for the credentials file for the google drive API make sure that yours matches this name and is matches this file path: ./drive/credentials.json
+driveCredentials: credentials.json
