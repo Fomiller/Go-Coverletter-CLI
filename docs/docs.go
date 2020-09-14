@@ -9,6 +9,8 @@ import (
 	"os"
 	"strings"
 
+	"github.com/fomiller/scribe/config"
+
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -18,19 +20,19 @@ import (
 var docSrv *docs.Service
 
 func init() {
-	b, err := ioutil.ReadFile("./docs/credentials.json")
+	b, err := ioutil.ReadFile(fmt.Sprintf("./docs/%v", config.Config.DocCredentials))
 	if err != nil {
 		log.Fatalf(`%v
- 
-	Please navigate to https://console.cloud.google.com/apis/credentials, to create and download credentials for a 0Auth client ID.
 
-	Save your new credentials as 'credentials.json' inside the scribe/docs folder.
-			
-	Once credentials are saved to the correct location run 'go install' from the applications root directory.
-			
-	to test your applicaton run 'scribe' in your terminal
+		Please navigate to https://console.cloud.google.com/apis/credentials, to create and download credentials for a 0Auth client ID.
 
-`, err)
+		Save your new credentials as 'credentials.json' inside the scribe/docs folder.
+
+		Once credentials are saved to the correct location run 'go install' from the applications root directory.
+
+		to test your applicaton run 'scribe' in your terminal
+
+	`, err)
 	}
 
 	// If modifying these scopes, delete your previously saved token.json.

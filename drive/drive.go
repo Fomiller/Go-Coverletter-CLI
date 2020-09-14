@@ -9,6 +9,7 @@ import (
 	"os"
 	"regexp"
 
+	"github.com/fomiller/scribe/config"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -18,7 +19,7 @@ import (
 var driveSrv *drive.Service
 
 func init() {
-	b, err := ioutil.ReadFile("./drive/credentials.json")
+	b, err := ioutil.ReadFile(fmt.Sprintf("./docs/%v", config.Config.DriveCredentials))
 	if err != nil {
 		log.Fatalf(`%v
  
