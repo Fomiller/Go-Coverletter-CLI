@@ -8,7 +8,9 @@ downloadOutput:
   # EX. The file Google-Resume.pdf, would be downloaded at 
   # C:\scribe\Google\Google-resume.pdf
   folderGeneration: true
+# this object structure could be credentials.docs and credentials.drive
 # this is the default file name for the credentials file for the google docs API make sure that yours matches this as is located at this file path: ./docs/credentials.json
-docCredentials: credentials.json
-# this is the default file name for the credentials file for the google drive API make sure that yours matches this as is located at this file path: ./drive/credentials.json
-driveCredentials: credentials.json
+credentials:
+  docs: credentials.json
+  # this is the default file name for the credentials file for the google drive API make sure that yours matches this as is located at this file path: ./drive/credentials.json
+  drive: credentials.json

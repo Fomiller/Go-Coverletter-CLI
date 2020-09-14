@@ -14,11 +14,13 @@ type ScribeConfig struct {
 		User             string `yaml:"user,omitempty"`
 		FolderGeneration bool   `yaml:"folderGeneration,omitempty"`
 	} `yaml:"downloadOutput,omitempty"`
-	DocCredentials   string `yaml:"docCredentials,omitempty"`
-	DriveCredentials string `yaml:"driveCredentials,omitempty"`
+	Credentials struct {
+		Docs  string `yaml:"docs,omitempty"`
+		Drive string `yaml:"drive,omitempty"`
+	} `yaml:"credentials,omitempty"`
 }
 
-var Config = ScribeConfig{}
+var Scribe = ScribeConfig{}
 
 func init() {
 	filename, err := filepath.Abs("./config/config.yaml")
@@ -29,7 +31,7 @@ func init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = yaml.Unmarshal(f, &Config)
+	err = yaml.Unmarshal(f, &Scribe)
 	if err != nil {
 		log.Fatal(err)
 	}

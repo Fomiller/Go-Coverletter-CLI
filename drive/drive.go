@@ -19,7 +19,7 @@ import (
 var driveSrv *drive.Service
 
 func init() {
-	b, err := ioutil.ReadFile(fmt.Sprintf("./docs/%v", config.Config.DriveCredentials))
+	b, err := ioutil.ReadFile(fmt.Sprintf("./docs/%v", config.Scribe.Credentials.Drive))
 	if err != nil {
 		log.Fatalf(`%v
  

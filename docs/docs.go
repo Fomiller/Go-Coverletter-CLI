@@ -20,7 +20,7 @@ import (
 var docSrv *docs.Service
 
 func init() {
-	b, err := ioutil.ReadFile(fmt.Sprintf("./docs/%v", config.Config.DocCredentials))
+	b, err := ioutil.ReadFile(fmt.Sprintf("./docs/%v", config.Scribe.Credentials.Docs))
 	if err != nil {
 		log.Fatalf(`%v
 
