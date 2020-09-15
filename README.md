@@ -25,7 +25,7 @@ To run Scribe as a command, make sure that your $GOPATH/bin is added to your sys
 - [ ] create function for folderGeneration with files.
 - [x] Download file after filling out template
 - [x] Ability to parse a template and return the fields needed to fill out the template
-- [ ] Create utils.go for helper functions
+- [x] Create utils.go for helper functions
 - [ ] Rename NewFileName variable to Name
 - [x] interactive command line ability with survey
 - [ ] list all available functions at root command with survey
