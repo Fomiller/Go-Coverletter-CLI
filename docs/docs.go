@@ -106,34 +106,6 @@ func TemplateFromFunc(rs []*docs.Request) *docs.BatchUpdateDocumentRequest {
 	return template
 }
 
-// NEEDS TO BE REMOVED
-// // reads template.json file and returns a BatchUpdateDocumentRequest for updating documents.
-// func templateFromFile(file string) (*docs.BatchUpdateDocumentRequest, error) {
-// 	// init template stuct
-// 	template := &docs.BatchUpdateDocumentRequest{}
-// 	// read file
-// 	f, err := os.Open(file)
-// 	defer f.Close()
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	// decode JSON into BatchUpdateDocumentRequest struct
-// 	err = json.NewDecoder(f).Decode(template)
-// 	return template, err
-// }
-
-// OLD FUNCTION NEEDS TO BE REMOVED BROKEN APRART
-// func UpdateTemplateFile(templateId string) string {
-// 	// **** make this file a dynamic file ****
-// 	tpl, err := templateFromFile("./docs/template.json")
-// 	batchRes, err := docSrv.Documents.BatchUpdate(templateId, tpl).Do()
-// 	if err != nil {
-// 		log.Fatalf("BATCH FAIL %v ", err)
-// 	}
-// 	fmt.Printf("SUCCESSFUL BATCH UPDATE: %v \n", batchRes.DocumentId)
-// 	return batchRes.DocumentId
-// }
-
 func CreateRequestStruct(m map[string]string) []*docs.Request {
 	// create slice to store request objects.
 	var rss []*docs.Request
