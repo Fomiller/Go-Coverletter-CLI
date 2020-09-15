@@ -159,7 +159,16 @@ func NewTemplate(newFileName string, templateId string) string {
 // TODO*** make the output directory and dynamic value; specified by a flag??
 func DownloadFile(fileId string, fileName string) {
 	// set out put folder name
-	path := "output"
+	var path string
+	if config.Scribe.Download.Path != "" {
+		path = config.Scribe.Download.Path
+	} else {
+		dir, err := os.UserHomeDir()
+		if err != nil {
+			log.Fatalf("Error determining the users $HOME or %%USERPORFILE%% enviornment variable:%v", err)
+		}
+		path = fmt.Sprintf("%v\\scribe", dir)
+	}
 	// append file type to file name
 	fileName = fmt.Sprintf("%v.pdf", fileName)
 	// create call to export file from drive
@@ -183,7 +192,7 @@ func DownloadFile(fileId string, fileName string) {
 	}
 
 	// write the file to specified folder
-	err = ioutil.WriteFile(fmt.Sprintf("./%v/%v", path, fileName), body, 0644)
+	err = ioutil.WriteFile(fmt.Sprintf("%v\\%v", path, fileName), body, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
