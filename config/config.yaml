@@ -1,5 +1,5 @@
 ---
-downloadOutput: 
+download: 
   # Scribes default output path is the users home directory.
   # On MAC scribe uses the $HOME enviornment variable
   # On Windows scribe uses the %USERPROFILE% variable.
