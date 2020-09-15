@@ -39,7 +39,7 @@ Scribe automatically downloads files to the users ```$HOME\scribe``` path on Mac
 
 You can define a custom default download path by setting ```download.path``` to your desired full path.  
 
-If you make changes to your config.yaml file make sure to run ``` go install``` after you save your changes.  
+If you make changes to your ```config.yaml``` file make sure to run ``` go install``` after you save your changes.  
 
 
 
