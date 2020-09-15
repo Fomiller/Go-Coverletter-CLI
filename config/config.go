@@ -9,9 +9,9 @@ import (
 )
 
 type ScribeConfig struct {
-	DownloadOutput struct {
-		Default          string `yaml:"default,omitempty"`
-		User             string `yaml:"user,omitempty"`
+	Download struct {
+		// Default          string `yaml:"default,omitempty"`
+		Path             string `yaml:"path,omitempty"`
 		FolderGeneration bool   `yaml:"folderGeneration,omitempty"`
 	} `yaml:"downloadOutput,omitempty"`
 	Credentials struct {

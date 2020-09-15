@@ -1,9 +1,10 @@
 ---
 downloadOutput: 
-  # This is the default output path when downloading files with scribe.
-  default: C:\scribe
-  # If the user would like to use a different output the user can define that here.
-  user: ~
+  # Scribes default output path is the users home directory.
+  # On MAC scribe uses the $HOME enviornment variable
+  # On Windows scribe uses the %USERPROFILE% variable.
+  # If the user would like to use a different default output path the user can define that here.
+  path: ~
   # If folderGeneration is set to true scribe will parse the file name and create a folder to store the downloaded file in.
   # EX. The file Google-Resume.pdf, would be downloaded at 
   # C:\scribe\Google\Google-resume.pdf
