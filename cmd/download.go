@@ -17,7 +17,10 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 
+	"github.com/AlecAivazis/survey/v2"
+	"github.com/fomiller/scribe/drive"
 	"github.com/spf13/cobra"
 )
 
@@ -32,11 +35,20 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("download called")
-		fmt.Println(DlFile)
-		// if DlFile == true {
-		// 	drive.DownloadFile()
-		// }
+		if NewFileName == "" {
+			prompt := &survey.Input{
+				Message: "What is the name of the file you want to download",
+			}
+			survey.AskOne(prompt, &NewFileName)
+		}
+		// get file id from name variable
+		docId, err := drive.GetFileId(NewFileName)
+		if err != nil {
+			log.Fatal(err)
+		}
+		// download file
+		drive.DownloadFile(docId, NewFileName)
+		fmt.Printf("%v Downloaded", NewFileName)
 	},
 }
 
