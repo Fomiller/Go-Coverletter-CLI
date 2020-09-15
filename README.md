@@ -17,10 +17,16 @@ To run Scribe as a command, make sure that your $GOPATH/bin is added to your sys
 - [ ] Allow for taking in objects for fields to be edited
 - [x] Add ability to Delete files from drive
 - [x] Ability to specify template.
+- [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
+- [x] Download cmd clean up.
+- [x] Download cmd interactive mode.
+- [ ] Download cmd set output path with flag.
+- [x] Download cmd remove -d flag check.
+- [ ] create function for folderGeneration with files.
 - [x] Download file after filling out template
-- [ ] Set download output path dynamically, flag?
 - [x] Ability to parse a template and return the fields needed to fill out the template
 - [ ] Create utils.go for helper functions
+- [ ] Rename NewFileName variable to Name
 - [x] interactive command line ability with survey
 - [ ] list all available functions at root command with survey
 - [ ] Research how to install and setup on end user computer without go installed. 
