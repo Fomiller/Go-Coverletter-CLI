@@ -37,7 +37,9 @@ To run Scribe as a command, make sure that your $GOPATH/bin is added to your sys
 Use the ```config.yaml``` file to set configuration settings for Scribe.
 Scribe automatically downloads files to the users ```$HOME\scribe``` path on Mac/Linux systems, and ```%USERPROFILE%\scribe``` path on Windows systems.  
 
-You can define a custom default download path by setting ```download.path``` to your desired full path.
+You can define a custom default download path by setting ```download.path``` to your desired full path.  
+
+If you make changes to your config.yaml file make sure to run ``` go install``` after you save your changes.  
 
 
 
