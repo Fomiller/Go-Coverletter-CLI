@@ -1,17 +1,6 @@
 # Scribe CLI
 
-## Install
-```bash
-  go get github.com/fomiller/scribe
-
-  cd $GOPATH/src/github.com/fomiller/scribe
-```
-Your first time running ```scribe``` you will be asked to create credentials from the google developer console. Follow the instructions given by scribe to complete this process.  
-Once you have created and saved your credentials run ```go install```  
-Test to make sure your application is working correctly by running ```scribe``` in your command line.  
-To run Scribe as a command, make sure that your $GOPATH/bin is added to your system $PATH
-
-### ToDo Features
+## ToDo Features
 - [ ] Add config file instructions to README.md
 - [ ] Rename NewFileName variable to Name
 - [ ] create function for folderGeneration with files.
@@ -32,6 +21,24 @@ To run Scribe as a command, make sure that your $GOPATH/bin is added to your sys
 - [x] Ability to parse a template and return the fields needed to fill out the template
 - [x] Create utils.go for helper functions
 - [x] interactive command line ability with survey
+
+## Install
+```bash
+  go get github.com/fomiller/scribe
+
+  cd $GOPATH/src/github.com/fomiller/scribe
+```
+Your first time running ```scribe``` you will be asked to create credentials from the google developer console. Follow the instructions given by scribe to complete this process.  
+Once you have created and saved your credentials run ```go install```  
+Test to make sure your application is working correctly by running ```scribe``` in your command line.  
+To run Scribe as a command, make sure that your $GOPATH/bin is added to your system $PATH
+
+## Configure
+Use the ```config.yaml``` file to set configuration settings for Scribe.
+Scribe automatically downloads files to the users ```$HOME\scribe``` path on Mac/Linux systems, and ```%USERPROFILE%\scribe``` path on Windows systems.  
+You can define a custom default download path by setting ```download.path``` to your desired full path.
+
+
 
 ## godocs references
 drive  
