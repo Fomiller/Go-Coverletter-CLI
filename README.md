@@ -12,25 +12,26 @@ Test to make sure your application is working correctly by running ```scribe``` 
 To run Scribe as a command, make sure that your $GOPATH/bin is added to your system $PATH
 
 ### ToDo Features
-- [x] create a config file
 - [ ] Add config file instructions to README.md
+- [ ] Rename NewFileName variable to Name
+- [ ] create function for folderGeneration with files.
+- [ ] Allow for setting document type on download. 
+- [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
 - [ ] Ability to read from google sheets / csv files
 - [ ] Allow for taking in objects for fields to be edited
+- [ ] Research how to install and setup on end user computer without go installed. 
+- [x] list all available functions at root command with survey
+- [x] create a config file
 - [x] Add ability to Delete files from drive
 - [x] Ability to specify template.
-- [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
 - [x] Download cmd clean up.
 - [x] Download cmd interactive mode.
 - [x] Download cmd set output path with flag.
 - [x] Download cmd remove -d flag check.
-- [ ] create function for folderGeneration with files.
 - [x] Download file after filling out template
 - [x] Ability to parse a template and return the fields needed to fill out the template
 - [x] Create utils.go for helper functions
-- [ ] Rename NewFileName variable to Name
 - [x] interactive command line ability with survey
-- [ ] list all available functions at root command with survey
-- [ ] Research how to install and setup on end user computer without go installed. 
 
 ## godocs references
 drive  
