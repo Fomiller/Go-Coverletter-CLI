@@ -13,6 +13,7 @@ To run Scribe as a command, make sure that your $GOPATH/bin is added to your sys
 
 ### ToDo Features
 - [x] create a config file
+- [ ] Add config file instructions to README.md
 - [ ] Ability to read from google sheets / csv files
 - [ ] Allow for taking in objects for fields to be edited
 - [x] Add ability to Delete files from drive
@@ -20,7 +21,7 @@ To run Scribe as a command, make sure that your $GOPATH/bin is added to your sys
 - [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
 - [x] Download cmd clean up.
 - [x] Download cmd interactive mode.
-- [ ] Download cmd set output path with flag.
+- [x] Download cmd set output path with flag.
 - [x] Download cmd remove -d flag check.
 - [ ] create function for folderGeneration with files.
 - [x] Download file after filling out template
