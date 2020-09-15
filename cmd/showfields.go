@@ -26,7 +26,6 @@ to quickly create a Cobra application.`,
 				Message: "What Template would you like to use",
 			}
 			survey.AskOne(prompt, &TemplateName)
-			fmt.Println("\n")
 		}
 		// get the docID of the template that needs to be parsed
 		templateId, err := drive.GetFileId(TemplateName)

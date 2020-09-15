@@ -78,7 +78,6 @@ var surveyCmd = &cobra.Command{
 		// Unmarshal answer.Fields into type FieldMap map[string]string
 		json.Unmarshal([]byte(answers.Fields), &FieldMap)
 
-		fmt.Println("\n")
 		// print out the name of the file being downloaded
 		fmt.Printf("Creating: %v\n", NewFileName)
 		// print out the name of the template being used
