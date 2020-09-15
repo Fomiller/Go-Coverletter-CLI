@@ -17,6 +17,7 @@ var TemplateName string
 var NewFileName string
 var DlFile bool
 var FieldMap map[string]string
+var TemplateData = map[string]interface{}{}
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -29,7 +30,7 @@ var rootCmd = &cobra.Command{
 		var command string
 		prompt := &survey.Select{
 			Message: "Choose a command to run:",
-			Options: []string{"create", "parse", "delete", "multidelete"},
+			Options: []string{"create", "show template fields", "delete", "multidelete"},
 		}
 		survey.AskOne(prompt, &command)
 
@@ -37,8 +38,8 @@ var rootCmd = &cobra.Command{
 		switch command {
 		case "create":
 			createCmd.Run(cmd, args)
-		case "parse":
-			parseCmd.Run(cmd, args)
+		case "show template fields":
+			showfieldsCmd.Run(cmd, args)
 		case "delete":
 			deleteCmd.Run(cmd, args)
 		case "multidelete":

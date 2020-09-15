@@ -22,14 +22,6 @@ var createQuestions = []*survey.Question{
 		Prompt:   &survey.Input{Message: "What is the name of the template you want to use"},
 		Validate: survey.Required,
 	},
-	// {
-	// 	Name: "download",
-	// 	Prompt: &survey.Confirm{
-	// 		Message: "Do you want to download this file?",
-	// 		Default: false,
-	// 	},
-	// 	Validate: survey.Required,
-	// },
 }
 
 // createCmd represents the create command
@@ -98,7 +90,8 @@ var createCmd = &cobra.Command{
 			// set DLFile equal to prompt input
 			DlFile = answers.Download
 
-			// create file from survey
+			// create file defined below
+			// arguments are provided from survey
 			CreateFile(NewFileName, TemplateName, FieldMap, DlFile)
 
 		}
