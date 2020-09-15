@@ -10,6 +10,7 @@ import (
 	"regexp"
 
 	"github.com/fomiller/scribe/config"
+	"github.com/fomiller/scribe/utils"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
@@ -224,7 +225,7 @@ func ParseTemplateFields(fileId string) []string {
 	rs := rgx.FindAllStringSubmatch(strBody, -1)
 	// push parsed fields to a parsed fields []string
 	for _, v := range rs {
-		parsedFields = AppendIfMissing(parsedFields, v[1])
+		parsedFields = utils.AppendIfMissing(parsedFields, v[1])
 	}
 	// return parsed fields
 	return parsedFields
@@ -236,15 +237,6 @@ func DeleteFile(docId string) error {
 	err := driveSrv.Files.Delete(docId).Do()
 	// return err
 	return err
-}
-
-func AppendIfMissing(slice []string, s string) []string {
-	for _, str := range slice {
-		if str == s {
-			return slice
-		}
-	}
-	return append(slice, s)
 }
 
 func ListFileNames() []string {
