@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/fomiller/scribe/config"
 	"github.com/fomiller/scribe/drive"
 	"github.com/spf13/cobra"
 )
@@ -13,19 +14,37 @@ import (
 var downloadCmd = &cobra.Command{
 	Use:   "download",
 	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		// if path flag is set use as download path
+		if Path != "" {
+			config.Scribe.Download.Path = Path
+		}
+		// if name flag is not set ask for the file name
 		if NewFileName == "" {
 			prompt := &survey.Input{
 				Message: "What is the name of the file you want to download",
 			}
 			survey.AskOne(prompt, &NewFileName)
 		}
+
+		// if path flag is not set prompt if you would like to set the output path default to "NO"
+		if Path == "" {
+			// init setPath variable
+			setPath := false
+			prompt := &survey.Confirm{
+				Message: "Do you want to set a custom output path for this file?",
+				Default: false,
+			}
+			survey.AskOne(prompt, &setPath)
+			// if the user confirms to set an output path enter the path here and set to config.Scribe.Download.Path
+			if setPath == true {
+				prompt := &survey.Input{
+					Message: "What path would you like to use to download your file to?",
+				}
+				survey.AskOne(prompt, &config.Scribe.Download.Path)
+			}
+		}
+
 		// get file id from name variable
 		docId, err := drive.GetFileId(NewFileName)
 		if err != nil {
