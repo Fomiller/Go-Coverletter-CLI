@@ -1,12 +1,13 @@
 # Scribe CLI
 
 ## ToDo Features
-- [ ] Add config file instructions to README.md
+- [x] Add config file instructions to README.md
 - [ ] Rename NewFileName variable to Name
 - [ ] create function for folderGeneration with files.
 - [ ] Allow for setting document type on download. 
 - [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
 - [ ] Ability to read from google sheets / csv files
+- [ ] Add create from file command
 - [ ] Allow for taking in objects for fields to be edited
 - [ ] Research how to install and setup on end user computer without go installed. 
 - [x] list all available functions at root command with survey
@@ -34,7 +35,7 @@ Test to make sure your application is working correctly by running ```scribe``` 
 To run Scribe as a command, make sure that your $GOPATH/bin is added to your system $PATH
 
 ## Configure
-Use the ```config.yaml``` file to set configuration settings for Scribe.
+Use the ```config.yaml``` file to set configuration settings for Scribe.  
 Scribe automatically downloads files to the users ```$HOME\scribe``` path on Mac/Linux systems, and ```%USERPROFILE%\scribe``` path on Windows systems.  
 
 You can define a custom default download path by setting ```download.path``` to your desired full path.  
