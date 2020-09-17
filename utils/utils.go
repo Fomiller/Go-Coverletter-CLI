@@ -1,6 +1,9 @@
 package utils
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func AppendIfMissing(slice []string, s string) []string {
 	for _, str := range slice {
@@ -21,4 +24,10 @@ func StrIntfToStrStr(strInterface map[string]interface{}) map[string]string {
 		mapStrStr[strKey] = strValue
 	}
 	return mapStrStr
+}
+
+func GetFolderName(fileName string) string {
+	folder := strings.Split(fileName, "-")
+	folderName := strings.TrimSpace(folder[0])
+	return folderName
 }
