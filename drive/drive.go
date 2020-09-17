@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strings"
 
 	"github.com/fomiller/scribe/config"
 	"github.com/fomiller/scribe/utils"
@@ -157,13 +158,14 @@ func NewTemplate(newFileName string, templateId string) string {
 }
 
 // download a file to output folder
-// TODO*** make the output directory and dynamic value; specified by a flag??
 func DownloadFile(fileId string, fileName string) {
 	// set out put folder name
 	var path string
+	// check config file for custom path
 	if config.Scribe.Download.Path != "" {
 		path = config.Scribe.Download.Path
 	} else {
+		// if download.Path not set use the users $HOME path
 		dir, err := os.UserHomeDir()
 		if err != nil {
 			log.Fatalf("Error determining the users $HOME or %%USERPORFILE%% enviornment variable:%v", err)
@@ -187,7 +189,11 @@ func DownloadFile(fileId string, fileName string) {
 		log.Fatal(err)
 	}
 
-	// check if output folder if exists, if not then create the folder
+	if config.Scribe.Download.FolderGeneration == true && strings.Contains(fileName, "-") == true {
+		path = fmt.Sprintf("%v\\%v", path, utils.GetFolderName(fileName))
+		fmt.Printf("using folderGeneration to download:%v", fileName)
+	}
+	// check if output folder exists, if not then create the folder
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		os.Mkdir(path, 0644)
 	}
