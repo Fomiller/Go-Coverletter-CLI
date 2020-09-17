@@ -3,7 +3,7 @@
 ## ToDo Features
 - [x] Add config file instructions to README.md
 - [ ] Rename NewFileName variable to Name
-- [ ] create function for folderGeneration with files.
+- [x] create function for folderGeneration with files.
 - [ ] Allow for setting document type on download. 
 - [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
 - [ ] Ability to read from google sheets / csv files
