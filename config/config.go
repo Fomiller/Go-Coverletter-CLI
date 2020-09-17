@@ -13,6 +13,7 @@ type ScribeConfig struct {
 		// Default          string `yaml:"default,omitempty"`
 		Path             string `yaml:"path,omitempty"`
 		FolderGeneration bool   `yaml:"folderGeneration,omitempty"`
+		UsePrefix        bool   `yaml:"usePrefix,omitempty"`
 	} `yaml:"download,omitempty"`
 	Credentials struct {
 		Docs  string `yaml:"docs,omitempty"`
