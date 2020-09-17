@@ -46,19 +46,19 @@ var createCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		// execute the create commands when all variables are predefined with flags ie: scribe create -n "newFile" -t "fromTemplate" -f "date=1/01/2020"
-		if NewFileName != "" && TemplateName != "" && FieldMap != nil {
-			CreateFile(NewFileName, TemplateName, FieldMap, DlFile)
+		if Name != "" && TemplateName != "" && FieldMap != nil {
+			CreateFile(Name, TemplateName, FieldMap, DlFile)
 		}
 
 		// if no arguments specified
-		if NewFileName == "" || TemplateName == "" {
+		if Name == "" || TemplateName == "" {
 			// check if only template argument is missing return an error
-			if NewFileName == "" && TemplateName != "" {
+			if Name == "" && TemplateName != "" {
 				fmt.Println("Template argument missing")
 				return
 			}
-			// check if only NewfileName argument is missing return an error
-			if TemplateName == "" && NewFileName != "" {
+			// check if only Name argument is missing return an error
+			if TemplateName == "" && Name != "" {
 				fmt.Println("Filename argument missing ")
 				return
 			}
@@ -76,8 +76,8 @@ var createCmd = &cobra.Command{
 				fmt.Println(err.Error())
 				return
 			}
-			// set NewFileName, TemplateName, DlFile to recorded answers from survey
-			NewFileName = answers.FileName
+			// set Name, TemplateName, DlFile to recorded answers from survey
+			Name = answers.FileName
 			TemplateName = answers.TemplateName
 			parseCmd.Run(cmd, args)
 			// // Unmarshal answer.Fields into type FieldMap map[string]string
@@ -92,7 +92,7 @@ var createCmd = &cobra.Command{
 
 			// create file defined below
 			// arguments are provided from survey
-			CreateFile(NewFileName, TemplateName, FieldMap, DlFile)
+			CreateFile(Name, TemplateName, FieldMap, DlFile)
 
 		}
 	},
@@ -103,9 +103,9 @@ func init() {
 	createCmd.Flags().StringToStringVarP(&FieldMap, "field", "f", nil, "use this to fill out custom fields")
 }
 
-func CreateFile(NewFileName string, TemplateName string, FieldMap map[string]string, DlFile bool) {
+func CreateFile(Name string, TemplateName string, FieldMap map[string]string, DlFile bool) {
 	// print out the name of the file being downloaded
-	fmt.Printf("Creating: %v\n", NewFileName)
+	fmt.Printf("Creating: %v\n", Name)
 	// print out the name of the template being used
 	fmt.Printf("Using template: %v\n", TemplateName)
 	// Get Template Id from the template name
@@ -113,8 +113,8 @@ func CreateFile(NewFileName string, TemplateName string, FieldMap map[string]str
 	if err != nil {
 		log.Fatal(err)
 	}
-	// create and return docId for new file using NewFileName and the templateID from TemplateName,
-	docId := drive.NewTemplate(NewFileName, templateId)
+	// create and return docId for new file using Name and the templateID from TemplateName,
+	docId := drive.NewTemplate(Name, templateId)
 	// create replace struct from field flags
 	// **fields to be changed inside the document/template
 	replaceStruct := docs.CreateRequestStruct(FieldMap)
@@ -124,7 +124,7 @@ func CreateFile(NewFileName string, TemplateName string, FieldMap map[string]str
 	fmt.Println("New File Created")
 
 	if DlFile == true {
-		drive.DownloadFile(docId, NewFileName)
-		fmt.Printf("%v Downloaded", NewFileName)
+		drive.DownloadFile(docId, Name)
+		fmt.Printf("%v Downloaded", Name)
 	}
 }

@@ -16,14 +16,14 @@ var deleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "Delete File from Google Drive",
 	Run: func(cmd *cobra.Command, args []string) {
-		if NewFileName == "" {
+		if Name == "" {
 			prompt := &survey.Input{
 				Message: "What is the name of the file you want to delete?",
 			}
-			survey.AskOne(prompt, &NewFileName)
+			survey.AskOne(prompt, &Name)
 		}
 		// get docId for file to be deleted
-		docId, err := drive.GetFileId(NewFileName)
+		docId, err := drive.GetFileId(Name)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -34,7 +34,7 @@ var deleteCmd = &cobra.Command{
 			log.Fatal(err)
 		} else {
 			// if err is nil
-			fmt.Printf("%v Deleted", NewFileName)
+			fmt.Printf("%v Deleted", Name)
 		}
 	},
 }

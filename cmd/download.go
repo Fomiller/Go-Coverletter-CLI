@@ -20,11 +20,11 @@ var downloadCmd = &cobra.Command{
 			config.Scribe.Download.Path = Path
 		}
 		// if name flag is not set ask for the file name
-		if NewFileName == "" {
+		if Name == "" {
 			prompt := &survey.Input{
 				Message: "What is the name of the file you want to download",
 			}
-			survey.AskOne(prompt, &NewFileName)
+			survey.AskOne(prompt, &Name)
 		}
 
 		// if path flag is not set prompt if you would like to set the output path default to "NO"
@@ -46,13 +46,13 @@ var downloadCmd = &cobra.Command{
 		}
 
 		// get file id from name variable
-		docId, err := drive.GetFileId(NewFileName)
+		docId, err := drive.GetFileId(Name)
 		if err != nil {
 			log.Fatal(err)
 		}
 		// download file
-		drive.DownloadFile(docId, NewFileName)
-		fmt.Printf("%v Downloaded", NewFileName)
+		drive.DownloadFile(docId, Name)
+		fmt.Printf("%v Downloaded", Name)
 	},
 }
 

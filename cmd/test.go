@@ -2,10 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"log"
-	"os"
 
-	"github.com/fomiller/scribe/config"
+	"github.com/fomiller/scribe/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -15,13 +13,8 @@ var testCmd = &cobra.Command{
 	Short: "A brief description of your command",
 
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Uservalue:%v\n", config.Scribe.Download.Path)
-		if config.Scribe.Download.Path != "" {
-			log.Printf("Using user download Path:%v\n", config.Scribe.Download.Path)
-		} else {
-			dir, _ := os.UserHomeDir()
-			log.Printf("Using Default Download path:%v", dir)
-		}
+		test := utils.GetFolderName(Name)
+		fmt.Println(test)
 	},
 }
 
