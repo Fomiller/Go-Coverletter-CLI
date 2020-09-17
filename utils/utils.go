@@ -3,6 +3,8 @@ package utils
 import (
 	"fmt"
 	"strings"
+
+	"github.com/fomiller/scribe/config"
 )
 
 func AppendIfMissing(slice []string, s string) []string {
@@ -28,6 +30,10 @@ func StrIntfToStrStr(strInterface map[string]interface{}) map[string]string {
 
 func GetFolderName(fileName string) string {
 	folder := strings.Split(fileName, "-")
+	if config.Scribe.Download.UsePrefix == false {
+		folderName := strings.TrimSpace(folder[1])
+		return folderName
+	}
 	folderName := strings.TrimSpace(folder[0])
 	return folderName
 }
