@@ -172,8 +172,7 @@ func DownloadFile(fileId string, fileName string) {
 		}
 		path = fmt.Sprintf("%v\\scribe", dir)
 	}
-	// append file type to file name
-	fileName = fmt.Sprintf("%v.pdf", fileName)
+
 	// create call to export file from drive
 	fileCall := driveSrv.Files.Export(fileId, "application/pdf")
 	// execute download of file call
@@ -191,13 +190,15 @@ func DownloadFile(fileId string, fileName string) {
 
 	if config.Scribe.Download.FolderGeneration == true && strings.Contains(fileName, "-") == true {
 		path = fmt.Sprintf("%v\\%v", path, utils.GetFolderName(fileName))
-		fmt.Printf("using folderGeneration to download:%v", fileName)
+		fmt.Printf("using folderGeneration to download:%v\n", fileName)
 	}
 	// check if output folder exists, if not then create the folder
 	if _, err := os.Stat(path); os.IsNotExist(err) {
 		os.Mkdir(path, 0644)
 	}
 
+	// append file type to file name
+	fileName = fmt.Sprintf("%v.pdf", fileName)
 	// write the file to specified folder
 	err = ioutil.WriteFile(fmt.Sprintf("%v\\%v", path, fileName), body, 0644)
 	if err != nil {
