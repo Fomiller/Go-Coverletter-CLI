@@ -2,7 +2,7 @@
 
 ## ToDo Features
 - [x] Add config file instructions to README.md
-- [ ] Rename NewFileName variable to Name
+- [x] Rename NewFileName variable to Name
 - [x] create function for folderGeneration with files.
 - [ ] Allow for setting document type on download. 
 - [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
@@ -42,7 +42,16 @@ You can define a custom default download path by setting ```download.path``` to 
 
 If you make changes to your ```config.yaml``` file make sure to run ``` go install``` after you save your changes.  
 
-
+## Creating and using templates
+In Google Docs create a new template file.  
+Create a template field within your document, indicated by ```{{}}```.  
+Inside the ```{{}}``` add a Uppercase string describing the data you would like to insert into the template field.  
+Example.
+```
+{{DATE}}
+{{NAME}}
+{{ADDRESS}}
+```
 
 ## godocs references
 drive  
