@@ -1,3 +1,4 @@
+// Package utils are utilitie functions used in Scribe
 package utils
 
 import (
