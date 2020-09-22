@@ -10,6 +10,7 @@
 - [ ] Add create from file command
 - [ ] Allow for taking in objects for fields to be edited
 - [ ] Research how to install and setup on end user computer without go installed. 
+- [x] create test files
 - [x] list all available functions at root command with survey
 - [x] create a config file
 - [x] Add ability to Delete files from drive
