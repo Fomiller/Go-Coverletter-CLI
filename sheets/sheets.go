@@ -102,22 +102,6 @@ func saveToken(path string, token *oauth2.Token) {
 }
 
 func RunSheets() {
-	// b, err := ioutil.ReadFile("credentials.json")
-	// if err != nil {
-	// 	log.Fatalf("Unable to read client secret file: %v", err)
-	// }
-
-	// // If modifying these scopes, delete your previously saved token.json.
-	// config, err := google.ConfigFromJSON(b, sheets.SpreadsheetsScope)
-	// if err != nil {
-	// 	log.Fatalf("Unable to parse client secret file to config: %v", err)
-	// }
-	// client := getClient(config)
-
-	// srv, err := sheets.New(client)
-	// if err != nil {
-	// 	log.Fatalf("Unable to retrieve Sheets client: %v", err)
-	// }
 
 	// Prints the names and majors of students in a sample spreadsheet:
 	// https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
