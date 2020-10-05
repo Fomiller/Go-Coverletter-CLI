@@ -122,3 +122,27 @@ func RunSheets() {
 		}
 	}
 }
+
+func GetSpreadsheetColumnNames() []string {
+	spreadsheetId := "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+	readRange := "Class Data!1:1"
+	var columnNames []string
+	resp, err := sheetsSrv.Spreadsheets.Values.Get(spreadsheetId, readRange).Do()
+	if err != nil {
+		log.Fatalf("Unable to retrueve data from sheet: %v", err)
+	}
+
+	if len(resp.Values) == 0 {
+		fmt.Println("No data found.")
+	} else {
+		fmt.Println("Column Name:")
+		for _, row := range resp.Values {
+			// print each value from the row
+			for _, cell := range row {
+				// append cell value to column names
+				columnNames = append(columnNames, fmt.Sprint(cell))
+			}
+		}
+	}
+	return columnNames
+}
