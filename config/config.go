@@ -16,8 +16,9 @@ type ScribeConfig struct {
 		UsePrefix        bool   `yaml:"usePrefix,omitempty"`
 	} `yaml:"download,omitempty"`
 	Credentials struct {
-		Docs  string `yaml:"docs,omitempty"`
-		Drive string `yaml:"drive,omitempty"`
+		Docs   string `yaml:"docs,omitempty"`
+		Drive  string `yaml:"drive,omitempty"`
+		Sheets string `yaml:"sheets,omitempty"`
 	} `yaml:"credentials,omitempty"`
 }
 

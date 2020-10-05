@@ -18,3 +18,5 @@ credentials:
   docs: credentials.json
   # this is the default file name for the credentials file for the google drive API make sure that yours matches this as is located at this file path: ./drive/credentials.json
   drive: credentials.json
+  # this is the default file name for the credentials file for the google sheets API make sure that yours matches this as is located at this file path: ./sheets/credentials.json
+  sheets: credentials.json
