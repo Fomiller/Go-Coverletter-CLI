@@ -16,6 +16,8 @@ limitations under the License.
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/fomiller/scribe/sheets"
 	"github.com/spf13/cobra"
 )
@@ -33,7 +35,11 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 
 		fieldNames := sheets.GetSpreadsheetColumnNames()
-		sheets.GetColumns(fieldNames)
+		rowData := sheets.GetRowData()
+		spreadsheetData := sheets.FmtSpreadsheetData(fieldNames, rowData)
+		for i, v := range spreadsheetData {
+			fmt.Printf("%v:%v\n", i, v)
+		}
 	},
 }
 
