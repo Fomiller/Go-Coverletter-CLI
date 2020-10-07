@@ -173,8 +173,6 @@ func GetRowData() [][]interface{} {
 	}
 
 	return resp.Values
-	// CreateTempDataTypes(fieldNames, resp.Values)
-
 }
 
 func FmtSpreadsheetData(fieldNames []string, rows [][]interface{}) [][]TempData {
@@ -192,24 +190,18 @@ func FmtSpreadsheetData(fieldNames []string, rows [][]interface{}) [][]TempData 
 	// range over all rows
 	for _, row := range rows[1:] {
 		// print index and value of each item in slice
-		// newSlice := rowData
 		for i, v := range row {
-			// create new slice
-			// print index and value of each item in slice
-			// fmt.Printf("%v:%v\n", ii, v)
 			rowData[i].FieldValue = v
 		}
 		// create new slice the same length of the data slice
 		appendData := make([]TempData, len(rowData))
-
 		// copy over the values for rowData to s
 		for i, _ := range rowData {
 			appendData[i] = rowData[i]
 		}
-
 		// append appendData slice to spreadsheetData
 		spreadsheetData = append(spreadsheetData, appendData)
 	}
-	// fmt.Println(spreadsheetData)
+	// return the formated spreadsheet data
 	return spreadsheetData
 }
