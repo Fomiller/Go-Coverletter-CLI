@@ -17,6 +17,11 @@ import (
 
 var sheetsSrv *sheets.Service
 
+type TempData struct {
+	FieldName  interface{}
+	FieldValue interface{}
+}
+
 func init() {
 	b, err := ioutil.ReadFile(fmt.Sprintf("./sheets/%v", config.Scribe.Credentials.Sheets))
 	if err != nil {
@@ -135,7 +140,6 @@ func GetSpreadsheetColumnNames() []string {
 	if len(resp.Values) == 0 {
 		fmt.Println("No data found.")
 	} else {
-		fmt.Println("Column Name:")
 		for _, row := range resp.Values {
 			// print each value from the row
 			for _, cell := range row {
@@ -145,4 +149,65 @@ func GetSpreadsheetColumnNames() []string {
 		}
 	}
 	return columnNames
+}
+
+func SheetsRanges() {
+	spreadsheetId := "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+	readRange := "Class Data"
+	resp, err := sheetsSrv.Spreadsheets.Values.Get(spreadsheetId, readRange).Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(len(resp.Values))
+	fmt.Printf("%v\n", resp.Values[1:])
+
+}
+
+func GetColumns(fieldNames []string) {
+	spreadsheetId := "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
+	readRange := "Class Data"
+	resp, err := sheetsSrv.Spreadsheets.Values.Get(spreadsheetId, readRange).MajorDimension("ROWS").Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	CreateTempDataTypes(fieldNames, resp.Values)
+
+}
+
+func CreateTempDataTypes(fieldNames []string, rows [][]interface{}) {
+	newData := TempData{}
+	// create slice to hold all data for one field
+	masterSlice := [][]TempData{}
+	dataSlice := []TempData{}
+
+	// add field names
+	for _, fName := range fieldNames {
+		newData.FieldName = fName
+		dataSlice = append(dataSlice, newData)
+	}
+
+	// range over all rows
+	for _, row := range rows[1:] {
+		// print index and value of each item in slice
+		// newSlice := dataSlice
+		for i, v := range row {
+			// create new slice
+			// print index and value of each item in slice
+			// fmt.Printf("%v:%v\n", ii, v)
+			dataSlice[i].FieldValue = v
+		}
+		// create new slice the same length of the data slice
+		s := make([]TempData, len(dataSlice))
+
+		// copy over the values for dataSlice to s
+		for i, _ := range dataSlice {
+			s[i] = dataSlice[i]
+		}
+
+		// append s to masterSlice
+		masterSlice = append(masterSlice, s)
+	}
+	fmt.Println(masterSlice)
 }
