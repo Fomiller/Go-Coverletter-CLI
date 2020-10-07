@@ -164,7 +164,7 @@ func SheetsRanges() {
 
 }
 
-func GetColumns(fieldNames []string) {
+func GetRowData() [][]interface{} {
 	spreadsheetId := "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
 	readRange := "Class Data"
 	resp, err := sheetsSrv.Spreadsheets.Values.Get(spreadsheetId, readRange).MajorDimension("ROWS").Do()
@@ -172,42 +172,44 @@ func GetColumns(fieldNames []string) {
 		log.Fatal(err)
 	}
 
-	CreateTempDataTypes(fieldNames, resp.Values)
+	return resp.Values
+	// CreateTempDataTypes(fieldNames, resp.Values)
 
 }
 
-func CreateTempDataTypes(fieldNames []string, rows [][]interface{}) {
+func FmtSpreadsheetData(fieldNames []string, rows [][]interface{}) [][]TempData {
 	newData := TempData{}
 	// create slice to hold all data for one field
-	masterSlice := [][]TempData{}
-	dataSlice := []TempData{}
+	spreadsheetData := [][]TempData{}
+	rowData := []TempData{}
 
 	// add field names
 	for _, fName := range fieldNames {
 		newData.FieldName = fName
-		dataSlice = append(dataSlice, newData)
+		rowData = append(rowData, newData)
 	}
 
 	// range over all rows
 	for _, row := range rows[1:] {
 		// print index and value of each item in slice
-		// newSlice := dataSlice
+		// newSlice := rowData
 		for i, v := range row {
 			// create new slice
 			// print index and value of each item in slice
 			// fmt.Printf("%v:%v\n", ii, v)
-			dataSlice[i].FieldValue = v
+			rowData[i].FieldValue = v
 		}
 		// create new slice the same length of the data slice
-		s := make([]TempData, len(dataSlice))
+		appendData := make([]TempData, len(rowData))
 
-		// copy over the values for dataSlice to s
-		for i, _ := range dataSlice {
-			s[i] = dataSlice[i]
+		// copy over the values for rowData to s
+		for i, _ := range rowData {
+			appendData[i] = rowData[i]
 		}
 
-		// append s to masterSlice
-		masterSlice = append(masterSlice, s)
+		// append appendData slice to spreadsheetData
+		spreadsheetData = append(spreadsheetData, appendData)
 	}
-	fmt.Println(masterSlice)
+	// fmt.Println(spreadsheetData)
+	return spreadsheetData
 }
