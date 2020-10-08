@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/fomiller/scribe/docs"
 	"github.com/fomiller/scribe/sheets"
 	"github.com/spf13/cobra"
 )
@@ -33,7 +34,7 @@ to quickly create a Cobra application.`,
 				FieldMap[fkey] = fvalue
 			}
 			// create file for each row in spreadsheetData
-			CreateFile(fmt.Sprintf("test-%v", FieldMap["Student Name"]), "FROM FILE TEMPLATE", FieldMap, false)
+			docs.CreateFile(fmt.Sprintf("test-%v", FieldMap["Student Name"]), "FROM FILE TEMPLATE", FieldMap, false)
 			// print the field map
 			// fmt.Println(FieldMap)
 		}
