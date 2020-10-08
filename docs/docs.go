@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/fomiller/scribe/config"
+	"github.com/fomiller/scribe/drive"
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
@@ -136,4 +137,30 @@ func NewUpdateTemplateFile(templateId string, rs []*docs.Request) string {
 		log.Fatalf("BATCH FAIL %v ", err)
 	}
 	return batchRes.DocumentId
+}
+
+func CreateFile(Name string, TemplateName string, FieldMap map[string]string, DlFile bool) {
+	// print out the name of the file being downloaded
+	fmt.Printf("Creating: %v\n", Name)
+	// print out the name of the template being used
+	fmt.Printf("Using template: %v\n", TemplateName)
+	// Get Template Id from the template name
+	templateId, err := drive.GetFileId(TemplateName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	// create and return docId for new file using Name and the templateID from TemplateName,
+	docId := drive.NewTemplate(Name, templateId)
+	// create replace struct from field flags
+	// **fields to be changed inside the document/template
+	replaceStruct := CreateRequestStruct(FieldMap)
+	// update the newfile using the docId with the replace struct
+	NewUpdateTemplateFile(docId, replaceStruct)
+
+	fmt.Println("New File Created")
+
+	if DlFile == true {
+		drive.DownloadFile(docId, Name)
+		fmt.Printf("%v Downloaded", Name)
+	}
 }
