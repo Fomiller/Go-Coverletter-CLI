@@ -2,11 +2,9 @@ package cmd
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/fomiller/scribe/docs"
-	"github.com/fomiller/scribe/drive"
 
 	"github.com/spf13/cobra"
 )
@@ -47,7 +45,7 @@ var createCmd = &cobra.Command{
 
 		// execute the create commands when all variables are predefined with flags ie: scribe create -n "newFile" -t "fromTemplate" -f "date=1/01/2020"
 		if Name != "" && TemplateName != "" && FieldMap != nil {
-			CreateFile(Name, TemplateName, FieldMap, DlFile)
+			docs.CreateFile(Name, TemplateName, FieldMap, DlFile)
 		}
 
 		// if no arguments specified
@@ -92,7 +90,7 @@ var createCmd = &cobra.Command{
 
 			// create file defined below
 			// arguments are provided from survey
-			CreateFile(Name, TemplateName, FieldMap, DlFile)
+			docs.CreateFile(Name, TemplateName, FieldMap, DlFile)
 
 		}
 	},
@@ -101,30 +99,4 @@ var createCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(createCmd)
 	createCmd.Flags().StringToStringVarP(&FieldMap, "field", "f", nil, "use this to fill out custom fields")
-}
-
-func CreateFile(Name string, TemplateName string, FieldMap map[string]string, DlFile bool) {
-	// print out the name of the file being downloaded
-	fmt.Printf("Creating: %v\n", Name)
-	// print out the name of the template being used
-	fmt.Printf("Using template: %v\n", TemplateName)
-	// Get Template Id from the template name
-	templateId, err := drive.GetFileId(TemplateName)
-	if err != nil {
-		log.Fatal(err)
-	}
-	// create and return docId for new file using Name and the templateID from TemplateName,
-	docId := drive.NewTemplate(Name, templateId)
-	// create replace struct from field flags
-	// **fields to be changed inside the document/template
-	replaceStruct := docs.CreateRequestStruct(FieldMap)
-	// update the newfile using the docId with the replace struct
-	docs.NewUpdateTemplateFile(docId, replaceStruct)
-
-	fmt.Println("New File Created")
-
-	if DlFile == true {
-		drive.DownloadFile(docId, Name)
-		fmt.Printf("%v Downloaded", Name)
-	}
 }
