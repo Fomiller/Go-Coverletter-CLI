@@ -9,6 +9,7 @@
 - [ ] Ability to read from google sheets / csv files
 - [x] configure google sheets api
 - [x] Add create from file command
+- [ ] implement feature of cutting out the string "Template" from a template name when saving a file
 - [ ] support being able to use multiple sheets inside a spreadsheet
 - [ ] Allow for taking in objects for fields to be edited
 - [ ] Research how to install and setup on end user computer without go installed. 
