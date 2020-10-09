@@ -6,7 +6,7 @@
 - [x] create function for folderGeneration with files.
 - [ ] Allow for setting document type on download. 
 - [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
-- [ ] Ability to read from google sheets / csv files
+- [x] Ability to read from google sheets / csv files
 - [x] configure google sheets api
 - [x] Add create from file command
 - [x] implement feature of cutting out the string "Template" from a template name when saving a file
