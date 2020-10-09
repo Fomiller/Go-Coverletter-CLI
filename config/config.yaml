@@ -12,7 +12,7 @@ download:
   # if folderGeneration is set to TRUE and usePrefix is set to TRUE then a your download path for ex: "Google - Resume" would be $HOME\scribe\Google\Google - Resume.pdf
   # if folderGeneration is set to TRUE and usePrefix is set to FALSE then a your download path for ex: "Google - Resume" would be $HOME\scribe\Resume\Google - Resume.pdf
   # if folderGeneration is set to FALSE usePrefix is ignored
-  usePrefix: true
+  usePrefix: false
 credentials:
   # this is the default file name for the credentials file for the google docs API make sure that yours matches this as is located at this file path: ./docs/credentials.json
   docs: credentials.json
