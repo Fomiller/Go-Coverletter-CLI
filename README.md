@@ -7,8 +7,8 @@
 - [ ] Allow for setting document type on download. 
 - [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
 - [ ] Ability to read from google sheets / csv files
-- [ ] configure google sheets api
-- [ ] Add create from file command
+- [x] configure google sheets api
+- [x] Add create from file command
 - [ ] Allow for taking in objects for fields to be edited
 - [ ] Research how to install and setup on end user computer without go installed. 
 - [x] create test files
