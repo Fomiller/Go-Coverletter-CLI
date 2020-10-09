@@ -190,7 +190,7 @@ func DownloadFile(fileId string, fileName string) {
 
 	if config.Scribe.Download.FolderGeneration == true && strings.Contains(fileName, "-") == true {
 		path = fmt.Sprintf("%v\\%v", path, utils.GetFolderName(fileName))
-		fmt.Printf("using folderGeneration to download:%v\n", fileName)
+		fmt.Printf("using folderGeneration to download: %v\n", fileName)
 	}
 	// check if output folder exists, if not then create the folder
 	if _, err := os.Stat(path); os.IsNotExist(err) {
