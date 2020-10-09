@@ -128,9 +128,9 @@ func RunSheets() {
 	}
 }
 
-func GetSpreadsheetColumnNames() []string {
-	spreadsheetId := "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
-	readRange := "Class Data!1:1"
+func GetSpreadsheetColumnNames(spreadsheetId string) []string {
+	// spreadsheetId := "16gT3TQ5BveYpaU56PZkoKfCoQNagb_fRHKd0NAxHmkg"
+	readRange := "1:1"
 	var columnNames []string
 	resp, err := sheetsSrv.Spreadsheets.Values.Get(spreadsheetId, readRange).Do()
 	if err != nil {
@@ -164,9 +164,17 @@ func SheetsRanges() {
 
 }
 
-func GetRowData() [][]interface{} {
-	spreadsheetId := "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
-	readRange := "Class Data"
+func GetRowData(spreadsheetId string) [][]interface{} {
+	// spreadsheetId := "16gT3TQ5BveYpaU56PZkoKfCoQNagb_fRHKd0NAxHmkg"
+
+	// make a call to the spreadsheet to get sheets inside the spreadsheet
+	ss, err := sheetsSrv.Spreadsheets.Get(spreadsheetId).Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// set the readRange equal to the first sheet in the spreadsheet
+	readRange := ss.Sheets[0].Properties.Title
 	resp, err := sheetsSrv.Spreadsheets.Values.Get(spreadsheetId, readRange).MajorDimension("ROWS").Do()
 	if err != nil {
 		log.Fatal(err)
@@ -204,4 +212,17 @@ func FmtSpreadsheetData(fieldNames []string, rows [][]interface{}) [][]TempData 
 	}
 	// return the formated spreadsheet data
 	return spreadsheetData
+}
+
+func GetSheets() {
+	spreadsheetId := "16gT3TQ5BveYpaU56PZkoKfCoQNagb_fRHKd0NAxHmkg"
+	resp, err := sheetsSrv.Spreadsheets.Get(spreadsheetId).Do()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, v := range resp.Sheets {
+		fmt.Printf("%v\n", v.Properties.Title)
+	}
+
 }
