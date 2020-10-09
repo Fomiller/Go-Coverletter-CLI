@@ -63,7 +63,7 @@ to quickly create a Cobra application.`,
 			// strings to be removed from the file name
 			removeStrings := []string{"TEMPLATE", "template", "Template"}
 			// removing strings from file name
-			Name := utils.FmtFileName(Name, removeStrings...)
+			Name := utils.RemoveStringsFromFileName(Name, removeStrings...)
 
 			// create file for each row in spreadsheetData
 			docs.CreateFile(Name, TemplateName, FieldMap, DlFile)

@@ -39,7 +39,7 @@ func GetFolderName(fileName string) string {
 	return folderName
 }
 
-func FmtFileName(Name string, replaceStr ...string) string {
+func RemoveStringsFromFileName(Name string, replaceStr ...string) string {
 	for _, v := range replaceStr {
 		if strings.Contains(Name, v) {
 			Name = strings.ReplaceAll(Name, v, "")
