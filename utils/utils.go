@@ -38,3 +38,15 @@ func GetFolderName(fileName string) string {
 	folderName := strings.TrimSpace(folder[0])
 	return folderName
 }
+
+func FmtFileName(Name string, replaceStr ...string) string {
+	for _, v := range replaceStr {
+		if strings.Contains(Name, v) {
+			Name = strings.ReplaceAll(Name, v, "")
+			// remove "  " replace with " "
+		}
+	}
+	// remove double spaces
+	Name = strings.ReplaceAll(Name, "  ", " ")
+	return Name
+}
