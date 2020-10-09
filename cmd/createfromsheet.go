@@ -17,8 +17,10 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/fomiller/scribe/docs"
+	"github.com/fomiller/scribe/drive"
 	"github.com/fomiller/scribe/sheets"
 	"github.com/spf13/cobra"
 )
@@ -34,8 +36,12 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fieldNames := sheets.GetSpreadsheetColumnNames()
-		rowData := sheets.GetRowData()
+		fileId, err := drive.GetFileId(SheetName)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fieldNames := sheets.GetSpreadsheetColumnNames(fileId)
+		rowData := sheets.GetRowData(fileId)
 		spreadsheetData := sheets.FmtSpreadsheetData(fieldNames, rowData)
 
 		// initialize FieldMap
