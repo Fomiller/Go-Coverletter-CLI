@@ -12,7 +12,6 @@
 - [x] implement feature of cutting out the string "Template" from a template name when saving a file
 - [ ] support being able to use multiple sheets inside a spreadsheet
 - [ ] Allow for taking in objects for fields to be edited
-- [ ] Research how to install and setup on end user computer without go installed. 
 - [x] create test files
 - [x] list all available functions at root command with survey
 - [x] create a config file
