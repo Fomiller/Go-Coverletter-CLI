@@ -15,6 +15,7 @@ var cfgFile string
 var userLicense string
 var TemplateName string
 var Name string
+var SheetName string
 var Path string
 var DlFile bool
 var FieldMap map[string]string
@@ -75,6 +76,7 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&DlFile, "download", "d", false, "download file")
 	rootCmd.PersistentFlags().StringVarP(&TemplateName, "template", "t", "", "Enter the name of the template you would like to use.")
 	rootCmd.PersistentFlags().StringVarP(&Name, "name", "n", "", "Enter the name of the new file.")
+	rootCmd.PersistentFlags().StringVarP(&SheetName, "sheet", "s", "", "Enter the name of the sheet you would like to use.")
 	rootCmd.PersistentFlags().StringVarP(&Path, "path", "p", "", "Enter the full output path you would like to use.")
 	// rootCmd.PersistentFlags().StringP("author", "a", "YOUR NAME", "author name for copyright attribution")
 	// rootCmd.PersistentFlags().StringVarP(&userLicense, "license", "l", "", "name of license for the project")
