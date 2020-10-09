@@ -18,6 +18,7 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/fomiller/scribe/docs"
 	"github.com/fomiller/scribe/drive"
@@ -57,6 +58,15 @@ to quickly create a Cobra application.`,
 			}
 			// create file name by adding the TemplateName and the Unique File ID value together
 			Name = fmt.Sprintf("%v - %v", TemplateName, FieldMap["Unique File ID"])
+			// remove "template/TEMPLATE" from file name, if double spaces exist becasuse of this change remove those too.
+			if strings.Contains(Name, "TEMPLATE") || strings.Contains(Name, "template") == true {
+				// remove TEMPLATE
+				Name = strings.ReplaceAll(Name, "TEMPLATE", "")
+				// remove template
+				Name = strings.ReplaceAll(Name, "template", "")
+				// remove "  " replace with " "
+				Name = strings.ReplaceAll(Name, "  ", " ")
+			}
 			// create file for each row in spreadsheetData
 			docs.CreateFile(Name, TemplateName, FieldMap, DlFile)
 		}
