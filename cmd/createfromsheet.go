@@ -56,6 +56,7 @@ to quickly create a Cobra application.`,
 				fvalue := fmt.Sprint(vv.FieldValue)
 				FieldMap[fkey] = fvalue
 			}
+
 			// create file name by adding the TemplateName and the Unique File ID value together
 			Name = fmt.Sprintf("%v - %v", TemplateName, FieldMap["Unique File ID"])
 			// remove "template/TEMPLATE" from file name, if double spaces exist becasuse of this change remove those too.
@@ -67,6 +68,7 @@ to quickly create a Cobra application.`,
 				// remove "  " replace with " "
 				Name = strings.ReplaceAll(Name, "  ", " ")
 			}
+
 			// create file for each row in spreadsheetData
 			docs.CreateFile(Name, TemplateName, FieldMap, DlFile)
 		}
