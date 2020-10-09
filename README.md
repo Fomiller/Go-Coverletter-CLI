@@ -1,17 +1,17 @@
 # Scribe CLI
 
 ## ToDo Features
+- [ ] Allow for setting document type on download. 
+- [ ] support being able to use multiple sheets inside a spreadsheet
+- [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
+- [ ] Allow for taking in objects for fields to be edited
 - [x] Add config file instructions to README.md
 - [x] Rename NewFileName variable to Name
 - [x] create function for folderGeneration with files.
-- [ ] Allow for setting document type on download. 
-- [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
 - [x] Ability to read from google sheets / csv files
 - [x] configure google sheets api
 - [x] Add create from file command
 - [x] implement feature of cutting out the string "Template" from a template name when saving a file
-- [ ] support being able to use multiple sheets inside a spreadsheet
-- [ ] Allow for taking in objects for fields to be edited
 - [x] create test files
 - [x] list all available functions at root command with survey
 - [x] create a config file
