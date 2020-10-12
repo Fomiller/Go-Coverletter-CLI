@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/AlecAivazis/survey/v2"
 	"github.com/fomiller/scribe/utils"
 
 	"github.com/fomiller/scribe/docs"
@@ -26,6 +27,27 @@ import (
 	"github.com/fomiller/scribe/sheets"
 	"github.com/spf13/cobra"
 )
+
+var createFromSheetQuestions = []*survey.Question{
+	{
+		Name:     "sheetName",
+		Prompt:   &survey.Input{Message: "What is the name of the google sheet you would like to use?"},
+		Validate: survey.Required,
+	},
+	{
+		Name:     "templateName",
+		Prompt:   &survey.Input{Message: "What is the name of the template you would like to insert your data into?"},
+		Validate: survey.Required,
+	},
+	{
+		Name: "downloadFiles",
+		Prompt: &survey.Confirm{
+			Message: "Do you want to download ALL files?",
+			Default: false,
+		},
+		Validate: survey.Required,
+	},
+}
 
 // createfromsheetCmd represents the createfromsheet command
 var createfromsheetCmd = &cobra.Command{
@@ -38,6 +60,25 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
+		// define answer struct
+		sheetAnswers := struct {
+			SheetName    string // survey will match the question and field names
+			TemplateName string `survey:"templateName"` // or you can tag fields to match a specific name
+			Download     bool   // if the types don't match, survey will convert it
+		}{}
+		if SheetName == "" {
+			survey.AskOne(createFromSheetQuestions[0].Prompt, &sheetAnswers.SheetName)
+			SheetName = sheetAnswers.SheetName
+		}
+		if TemplateName == "" {
+			survey.AskOne(createFromSheetQuestions[1].Prompt, &sheetAnswers.TemplateName)
+			TemplateName = sheetAnswers.TemplateName
+		}
+		if DlFile == false {
+			survey.AskOne(createFromSheetQuestions[2].Prompt, &sheetAnswers.Download)
+			DlFile = sheetAnswers.Download
+		}
+
 		fileId, err := drive.GetFileId(SheetName)
 		if err != nil {
 			log.Fatal(err)
