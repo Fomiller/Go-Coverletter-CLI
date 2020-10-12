@@ -32,7 +32,7 @@ var rootCmd = &cobra.Command{
 		var command string
 		prompt := &survey.Select{
 			Message: "Choose a command to run:",
-			Options: []string{"create", "show all files", "show template fields", "download", "download multiple", "delete", "delete multiple"},
+			Options: []string{"create", "create from sheet", "show all files", "show template fields", "download", "download multiple", "delete", "delete multiple"},
 		}
 		survey.AskOne(prompt, &command)
 
@@ -40,6 +40,8 @@ var rootCmd = &cobra.Command{
 		switch command {
 		case "create":
 			createCmd.Run(cmd, args)
+		case "create from sheet":
+			createfromsheetCmd.Run(cmd, args)
 		case "show all files":
 			listCmd.Run(cmd, args)
 		case "show template fields":
