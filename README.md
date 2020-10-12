@@ -5,6 +5,9 @@
 - [ ] support being able to use multiple sheets inside a spreadsheet
 - [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
 - [ ] Allow for taking in objects for fields to be edited
+- [ ] Create interactive mode for createfromsheet cmd.
+- [x] Add createfromsheet to scribe interactive mode.
+- [ ] Add descriptions to all commands
 - [x] Add config file instructions to README.md
 - [x] Rename NewFileName variable to Name
 - [x] create function for folderGeneration with files.
