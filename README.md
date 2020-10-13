@@ -29,6 +29,11 @@ Example.
 {{NAME}}
 {{ADDRESS}}
 ```
+
+## Populating templates from Google Sheets
+Make a copy of this file ```https://docs.google.com/spreadsheets/d/16gT3TQ5BveYpaU56PZkoKfCoQNagb_fRHKd0NAxHmkg/edit?usp=sharing```.  
+Make sure to keep the Unique File ID Column. This Column can be appended to your templates file name to ensure that each file has a unique file name. 
+
 ## ToDo List
 - [ ] Allow for setting document type on download. 
 - [ ] Add descriptions to all commands
