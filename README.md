@@ -34,9 +34,25 @@ Example.
 Make a copy of this file ```https://docs.google.com/spreadsheets/d/16gT3TQ5BveYpaU56PZkoKfCoQNagb_fRHKd0NAxHmkg/edit?usp=sharing```.  
 Make sure to keep the Unique File ID Column. This Column can be appended to your templates file name to ensure that each file has a unique file name. 
 
+## Commands
+- create
+- create from sheet
+- show template fields
+- download
+- download multiple
+- delete
+
+## Flags
+- -d, --download
+- -n, --name
+- -p, --path
+- -s, --sheet
+- -t, --template
+
 ## ToDo List
 - [ ] Allow for setting document type on download. 
 - [ ] Add descriptions to all commands
+- [ ] Remove unnecessary commands
 - [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
 - [ ] support being able to use multiple sheets inside a spreadsheet
 - [x] Create interactive mode for createfromsheet cmd.
