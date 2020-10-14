@@ -1,4 +1,4 @@
-# Scribe CLI
+# Scribe Command Line Tool
 
 ## Install
 ```bash
