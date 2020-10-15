@@ -1,9 +1,12 @@
 package config
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"path/filepath"
+	"strings"
 
 	"gopkg.in/yaml.v2"
 )
@@ -23,9 +26,12 @@ type ScribeConfig struct {
 }
 
 var Scribe = ScribeConfig{}
+var GoPath = strings.Trim(fmt.Sprintln(os.Getenv("GOPATH")), "\n")
 
 func init() {
-	filename, err := filepath.Abs("./config/config.yaml")
+	// this allows scribe to be run in any directory by giving it a full path to read the config.yaml file
+	configPath := filepath.Join(GoPath, "\\src\\github.com\\fomiller\\scribe\\config\\config.yaml")
+	filename, err := filepath.Abs(configPath)
 	if err != nil {
 		log.Fatal(err)
 	}
