@@ -13,7 +13,7 @@ import (
 // downloadCmd represents the download command
 var downloadCmd = &cobra.Command{
 	Use:   "download",
-	Short: "A brief description of your command",
+	Short: "Download a file.",
 	Run: func(cmd *cobra.Command, args []string) {
 		// if path flag is set use as download path
 		if Path != "" {

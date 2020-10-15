@@ -52,13 +52,7 @@ var createFromSheetQuestions = []*survey.Question{
 // createfromsheetCmd represents the createfromsheet command
 var createfromsheetCmd = &cobra.Command{
 	Use:   "createfromsheet",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "create files using data from a Google Sheet",
 	Run: func(cmd *cobra.Command, args []string) {
 		// define answer struct
 		sheetAnswers := struct {

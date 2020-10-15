@@ -13,7 +13,7 @@ import (
 // multidownloadCmd represents the multidownload command
 var multidownloadCmd = &cobra.Command{
 	Use:   "multidownload",
-	Short: "A brief description of your command",
+	Short: "Download multiple files from selecting from a list.",
 	Run: func(cmd *cobra.Command, args []string) {
 		fileNameList := drive.ListFileNames()
 		filesToDownload := []string{}
