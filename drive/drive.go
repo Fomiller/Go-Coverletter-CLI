@@ -21,7 +21,7 @@ import (
 var driveSrv *drive.Service
 
 func init() {
-	b, err := ioutil.ReadFile(fmt.Sprintf("./docs/%v", config.Scribe.Credentials.Drive))
+	b, err := ioutil.ReadFile(fmt.Sprintf("%v\\src\\github.com\\fomiller\\scribe\\drive\\%v", config.GoPath, config.Scribe.Credentials.Drive))
 	if err != nil {
 		log.Fatalf(`%v
  
@@ -50,17 +50,17 @@ func init() {
 }
 
 // Retrieve a token, saves the token, then returns the generated client.
-func getClient(config *oauth2.Config) *http.Client {
+func getClient(cfig *oauth2.Config) *http.Client {
 	// The file token.json stores the user's access and refresh tokens, and is
 	// created automatically when the authorization flow completes for the first
 	// time.
-	tokFile := "./drive/token.json"
+	tokFile := fmt.Sprintf("%v\\src\\github.com\\fomiller\\scribe\\drive\\%v", config.GoPath, "token.json")
 	tok, err := tokenFromFile(tokFile)
 	if err != nil {
-		tok = getTokenFromWeb(config)
+		tok = getTokenFromWeb(cfig)
 		saveToken(tokFile, tok)
 	}
-	return config.Client(context.Background(), tok)
+	return cfig.Client(context.Background(), tok)
 }
 
 // Request a token from the web, then returns the retrieved token.

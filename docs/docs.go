@@ -21,7 +21,7 @@ import (
 var docSrv *docs.Service
 
 func init() {
-	b, err := ioutil.ReadFile(fmt.Sprintf("./docs/%v", config.Scribe.Credentials.Docs))
+	b, err := ioutil.ReadFile(fmt.Sprintf("%v\\src\\github.com\\fomiller\\scribe\\docs\\%v", config.GoPath, config.Scribe.Credentials.Docs))
 	if err != nil {
 		log.Fatalf(`%v
 
@@ -50,14 +50,14 @@ func init() {
 }
 
 // Retrieves a token, saves the token, then returns the generated client.
-func getClient(config *oauth2.Config) *http.Client {
-	tokFile := "./docs/token.json"
+func getClient(cfig *oauth2.Config) *http.Client {
+	tokFile := fmt.Sprintf("%v\\src\\github.com\\fomiller\\scribe\\docs\\%v", config.GoPath, "token.json")
 	tok, err := tokenFromFile(tokFile)
 	if err != nil {
-		tok = getTokenFromWeb(config)
+		tok = getTokenFromWeb(cfig)
 		saveToken(tokFile, tok)
 	}
-	return config.Client(context.Background(), tok)
+	return cfig.Client(context.Background(), tok)
 }
 
 // Requests a token from the web, then returns the retrieved token.
