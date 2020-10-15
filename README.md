@@ -23,11 +23,13 @@ If you make changes to your ```config.yaml``` file make sure to run ``` go insta
 In Google Docs create a new template file.  
 Create a template field within your document, indicated by ```{{}}```.  
 Inside the ```{{}}``` add a Uppercase string describing the data you would like to insert into the template field.  
+If you would like to use two words for a field such as ```Extracurricular Activity```, concatinate the two strings with an underscore ex: ```Extracurricular_Activity```
 Example.
 ```
 {{DATE}}
 {{NAME}}
 {{ADDRESS}}
+{{EXTRACURRICULAR_ACTIVITY}}
 ```
 
 ## Populating templates from Google Sheets
@@ -53,6 +55,10 @@ Make sure to keep the Unique File ID Column. This Column can be appended to your
 - [ ] Allow for setting document type on download. 
 - [ ] Add descriptions to all commands
 - [ ] Remove unnecessary commands
+- [ ] Parse command refactor
+- [ ] list command refactor
+- [ ] Add screenshots and gifs 
+- [ ] Add example template for users, that works with example sheet.
 - [ ] create a list all files cmd that where you can select a file then are prompted with another select list of what you would like to do with the file.
 - [ ] support being able to use multiple sheets inside a spreadsheet
 - [x] Create interactive mode for createfromsheet cmd.
