@@ -60,6 +60,6 @@ var parseCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(parseCmd)
+	// rootCmd.AddCommand(parseCmd)
 	// Here you will define your flags and configuration settings.
 }
